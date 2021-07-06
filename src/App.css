@@ -3,14 +3,29 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 20vmin;
   pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .App-logo.rotate {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+div.inline-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+div.inline-logo > img {
+  margin-right: 3vw;
+}
+
+div.inline-logo .smaller {
+  height: 10vh;
 }
 
 .App-header {
@@ -26,6 +41,7 @@
 
 .App-link {
   color: #61dafb;
+  margin-bottom: 5vh;
 }
 
 @keyframes App-logo-spin {
