@@ -1,17 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import './styles/main.css';
+import {invoke} from "@tauri-apps/api";
+import {listen} from "@tauri-apps/api/event";
+
+// todo: router, store, tailwindcss
+class App extends React.Component {
+	componentDidMount() {
+		setTimeout(() => {
+			invoke("start_smtp_server").then(r => {
+				console.log(r)
+			});
+		}, 100)
+		listen("mail-received", (r)=>{
+			console.log(r)
+		}).then().catch()
+	}
+	
+	render() {
+		return (
+			<div>
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed, tenetur?
+			</div>
+		)
+	}
+}
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<App/>
+	</React.StrictMode>,
+	document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
