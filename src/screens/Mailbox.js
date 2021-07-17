@@ -24,7 +24,7 @@ class Mailbox extends Component {
 					</svg>
 				</div>
 				<div className="font-semibold text-gray-500 mb-2">No mail to show!</div>
-				<div className="text-sm text-gray-400">Send emails using this smtp server: <br/>127.0.0.1:25</div>
+				<div className="text-sm text-gray-400">Send emails using this smtp server: <br/>127.0.0.1:2525</div>
 			</div>)
 		
 		return (

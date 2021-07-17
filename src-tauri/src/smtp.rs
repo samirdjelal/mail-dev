@@ -50,7 +50,7 @@ pub async fn start_smtp_server() {
 	let mut server = Server::new(handler);
 	server.with_name("localhost")
 		.with_ssl(SslConfig::None).unwrap()
-		.with_addr("127.0.0.1:25").unwrap();
+		.with_addr("127.0.0.1:2525").unwrap();
 	match server.serve() {
 		Ok(_) => {}
 		Err(error) => println!("Error: {:?}", error)
