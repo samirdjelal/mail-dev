@@ -1,39 +1,45 @@
 {
-  "name": "mail-dev",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@tauri-apps/api": "^1.0.0-beta.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
-  },
-  "scripts": {
-    "dev": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "tauri": "tauri"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.5"
-  }
+	"name": "mail-dev",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@tauri-apps/api": "^1.0.0-beta.4",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2",
+		"react-scripts": "4.0.3"
+	},
+	"scripts": {
+		"dev": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"tauri": "tauri",
+		"tailwind:dev": "npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css",
+		"tailwind:prod": "cross-env NODE_ENV=production npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@tauri-apps/cli": "^1.0.0-beta.5",
+		"autoprefixer": "^9.8.6",
+		"cross-env": "^7.0.3",
+		"postcss": "^7.0.36",
+		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
+	}
 }
