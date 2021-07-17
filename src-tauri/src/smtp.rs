@@ -71,7 +71,7 @@ pub fn parse(mime: String) {
 	};
 	
 	let parsed = parse_mail(mime.as_ref()).unwrap();
-	// println!("parsed: {:?}", parsed);
+	println!("parsed: {:?}", parsed);
 	for header in parsed.headers.iter() {
 		payload.headers.push((header.get_key(), header.get_value()));
 		match header.get_key().as_str() {
@@ -83,27 +83,35 @@ pub fn parse(mime: String) {
 			_ => {}
 		}
 	}
-	
-	for subpart in parsed.subparts.into_iter() {
-		if subpart.subparts.len() == 0 {
-			println!("x: {:?}", subpart.ctype.mimetype);
-			if subpart.ctype.mimetype == "text/plain" {
-				payload.text = subpart.get_body().unwrap();
-			} else if subpart.ctype.mimetype == "text/html" {
-				payload.html = subpart.get_body().unwrap();
-			}
-		} else {
-			for subpart in subpart.subparts.into_iter() {
+
+	if parsed.subparts.len() == 0 {
+		if parsed.ctype.mimetype == "text/plain" {
+			payload.text = parsed.get_body().unwrap();
+		} else if parsed.ctype.mimetype == "text/html" {
+			payload.html = parsed.get_body().unwrap();
+		}
+	} else {
+		for subpart in parsed.subparts.into_iter() {
+			if subpart.subparts.len() == 0 {
+				println!("x: {:?}", subpart.ctype.mimetype);
 				if subpart.ctype.mimetype == "text/plain" {
 					payload.text = subpart.get_body().unwrap();
 				} else if subpart.ctype.mimetype == "text/html" {
 					payload.html = subpart.get_body().unwrap();
 				}
+			} else {
+				for subpart in subpart.subparts.into_iter() {
+					if subpart.ctype.mimetype == "text/plain" {
+						payload.text = subpart.get_body().unwrap();
+					} else if subpart.ctype.mimetype == "text/html" {
+						payload.html = subpart.get_body().unwrap();
+					}
+				}
 			}
 		}
 	}
 	
+	
 	let win = window::main_window(None);
 	let _ = win.emit_all("mail-received", payload);
-	
 }
