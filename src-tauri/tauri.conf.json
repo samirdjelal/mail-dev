@@ -54,8 +54,8 @@
 		"windows": [
 			{
 				"title": "Mail Dev",
-				"width": 900,
-				"height": 600,
+				"width": 1100,
+				"height": 700,
 				"minWidth": 900,
 				"minHeight": 600,
 				"resizable": true,

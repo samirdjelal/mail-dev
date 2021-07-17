@@ -6,7 +6,7 @@ import {withRouter} from "react-router";
 class Sidebar extends Component {
 	render() {
 		return (
-			<div className="w-20 bg-gray-300 flex-shrink-0 flex flex-col items-center pt-2">
+			<div className="w-20 bg-gray-300 bg-opacity-40 flex-shrink-0 flex flex-col items-center pt-2 border-r border-gray-400 ">
 				<Link to="/mailbox">
 					<div className={`relative mb-4 cursor-pointer hover:opacity-80 rounded`}>
 						{this.props.history.location.pathname === '/mailbox' && <div className="absolute w-2 h-4 bg-gray-400 top-5 -left-1 rounded-full animate-pulse"></div>}

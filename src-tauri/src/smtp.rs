@@ -6,24 +6,39 @@ use tauri::Manager;
 
 #[derive(Clone, serde::Serialize, Debug)]
 struct Payload {
-	message: String,
+	mime: String,
 	headers: Vec<(String, String)>,
+	text: String,
+	html: String,
+	from: String,
+	to: String,
+	message_id: String,
+	subject: String,
+	x_priority: String,
 }
 
 #[derive(Clone, Debug)]
 struct MyHandler {
-	buffer: Vec<String>,
+	mime: Vec<String>,
+}
+
+impl MyHandler {
+	pub fn new() -> MyHandler {
+		MyHandler {
+			mime: vec![]
+		}
+	}
 }
 
 impl Handler for MyHandler {
 	fn data(&mut self, buf: &[u8]) -> std::io::Result<()> {
-		self.buffer.push(String::from_utf8(Vec::from(buf)).unwrap());
+		self.mime.push(String::from_utf8(Vec::from(buf)).unwrap());
 		Ok(())
 	}
 	
 	fn data_end(&mut self) -> Response {
-		let buffer = self.buffer.join("");
-		self::parse(buffer.clone());
+		let mime = self.mime.join("");
+		self::parse(mime.clone());
 		OK
 	}
 }
@@ -31,7 +46,7 @@ impl Handler for MyHandler {
 #[tauri::command]
 pub async fn start_smtp_server() {
 	println!("Starting smtp server");
-	let handler = MyHandler { buffer: vec![] };
+	let handler = MyHandler::new();
 	let mut server = Server::new(handler);
 	server.with_name("localhost")
 		.with_ssl(SslConfig::None).unwrap()
@@ -42,27 +57,64 @@ pub async fn start_smtp_server() {
 	}
 }
 
-pub fn parse(buffer: String) {
+pub fn parse(mime: String) {
 	let mut payload = Payload {
-		message: "".into(),
+		mime: mime.clone(),
 		headers: vec![],
+		subject: "".to_string(),
+		from: "".to_string(),
+		to: "".to_string(),
+		message_id: "".to_string(),
+		x_priority: "".to_string(),
+		text: "".to_string(),
+		html: "".to_string(),
 	};
 	
-	let parsed = parse_mail(buffer.as_ref()).unwrap();
+	let parsed = parse_mail(mime.as_ref()).unwrap();
 	// println!("parsed: {:?}", parsed);
 	for header in parsed.headers.iter() {
-		payload.headers.push((header.get_key(), header.get_value()))
+		payload.headers.push((header.get_key(), header.get_value()));
+		match header.get_key().as_str() {
+			"Subject" => payload.subject = header.get_value(),
+			"From" => payload.from = header.get_value(),
+			"To" => payload.to = header.get_value(),
+			"Message-ID" => payload.message_id = header.get_value(),
+			"X-Priority" => payload.x_priority = header.get_value(),
+			_ => {}
+		}
 	}
 	
 	for subpart in parsed.subparts.into_iter() {
-		println!("subparts: {:?}", subpart);
+		if subpart.subparts.len() == 0 {
+			println!("x: {:?}", subpart.ctype.mimetype);
+			if subpart.ctype.mimetype == "text/plain" {
+				payload.text = subpart.get_body().unwrap();
+			} else if subpart.ctype.mimetype == "text/html" {
+				payload.html = subpart.get_body().unwrap();
+			}
+		} else {
+			for subpart in subpart.subparts.into_iter() {
+				if subpart.ctype.mimetype == "text/plain" {
+					payload.text = subpart.get_body().unwrap();
+				} else if subpart.ctype.mimetype == "text/html" {
+					payload.html = subpart.get_body().unwrap();
+				}
+			}
+		}
+		
+		// if subpart.subparts.ctype.mimetype.starts_with("multipart/") {
+		// 	// println!("subparts: {:?}", subpart.subparts.get_body());
+		// 	println!("subparts: {:#?}", subpart.subparts);
+		// }
+		// if subpart.ctype.mimetype.starts_with("multipart/") {
+		// 	println!("subparts: {:?}", subpart.get_body());
+		// }
+		// println!("---------------------------------------------");
 	}
 	
 	// println!("Subject: {:?}", parsed.headers.get_first_value("Subject"));
 	// println!("Subparts: {:?}", parsed.subparts.len());
 	
-	payload.message = String::from(buffer);
-	// println!("payload: {:?}", payload);
 	let win = window::main_window(None);
 	let _ = win.emit_all("mail-received", payload);
 	
