@@ -6,4 +6,7 @@
 
 Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/en).
 
+
+[Download now](https://github.com/samirdjelal/mail-dev/releases/tag/v0.1.0)
+
 <img src="screenshot.png" alt="Mail-Dev"/>
