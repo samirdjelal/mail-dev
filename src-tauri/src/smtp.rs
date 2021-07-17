@@ -101,28 +101,9 @@ pub fn parse(mime: String) {
 				}
 			}
 		}
-		
-		// if subpart.subparts.ctype.mimetype.starts_with("multipart/") {
-		// 	// println!("subparts: {:?}", subpart.subparts.get_body());
-		// 	println!("subparts: {:#?}", subpart.subparts);
-		// }
-		// if subpart.ctype.mimetype.starts_with("multipart/") {
-		// 	println!("subparts: {:?}", subpart.get_body());
-		// }
-		// println!("---------------------------------------------");
 	}
-	
-	// println!("Subject: {:?}", parsed.headers.get_first_value("Subject"));
-	// println!("Subparts: {:?}", parsed.subparts.len());
 	
 	let win = window::main_window(None);
 	let _ = win.emit_all("mail-received", payload);
 	
-	
-	// println!("Subparts: {:?}", parsed.subparts.len());
-	// println!("Subparts 0 get_body: {:?}", parsed.subparts[0].get_body().unwrap());
-	// println!("Subparts 1 headers: {:?}", parsed.subparts[1].headers[1].get_value());
-	// println!("Subparts 1 ctype mimetype: {:?}", parsed.subparts[1].ctype.mimetype);
-	// println!("Subparts 1 get_body: {:?}", parsed.subparts[1].get_body().unwrap());
-	// println!("Date: {:?}", dateparse(parsed.headers.get_first_value("Date").unwrap().as_str()).unwrap());
 }
