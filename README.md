@@ -1,6 +1,6 @@
-# Mail-Dev
-
 <img src="src-tauri/icons/Square71x71Logo.png" alt="Mail-Dev" align="left"/>
+
+# Mail-Dev
 
 ## Local SMTP Server For Email Debugging
 
