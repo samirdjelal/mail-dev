@@ -1,11 +1,11 @@
 [package]
-name = "app"
+name = "mail-dev"
 version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
-license = ""
-repository = ""
-default-run = "app"
+description = "Mail Dev"
+authors = ["Samir Djelal"]
+license = "MIT"
+repository = "https://github.com/samirdjelal/mail-dev"
+default-run = "mail-dev"
 edition = "2018"
 build = "src/build.rs"
 
