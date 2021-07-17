@@ -1,5 +1,6 @@
 use mailin_embedded::{Server, SslConfig, Handler, Response};
 use mailin_embedded::response::{OK};
+use mailparse::parse_mail;
 use mailparse::*;
 use crate::window;
 use tauri::Manager;
@@ -35,7 +36,7 @@ impl Handler for MyHandler {
 		self.mime.push(String::from_utf8(Vec::from(buf)).unwrap());
 		Ok(())
 	}
-	
+
 	fn data_end(&mut self) -> Response {
 		let mime = self.mime.join("");
 		self::parse(mime.clone());
@@ -45,7 +46,7 @@ impl Handler for MyHandler {
 
 #[tauri::command]
 pub async fn start_smtp_server() {
-	println!("Starting smtp server");
+	println!("Smtp server running: 127.0.0.1:2525");
 	let handler = MyHandler::new();
 	let mut server = Server::new(handler);
 	server.with_name("localhost")
@@ -69,9 +70,9 @@ pub fn parse(mime: String) {
 		text: "".to_string(),
 		html: "".to_string(),
 	};
-	
+
 	let parsed = parse_mail(mime.as_ref()).unwrap();
-	println!("parsed: {:?}", parsed);
+	// println!("parsed: {:?}", parsed);
 	for header in parsed.headers.iter() {
 		payload.headers.push((header.get_key(), header.get_value()));
 		match header.get_key().as_str() {
@@ -84,34 +85,30 @@ pub fn parse(mime: String) {
 		}
 	}
 
-	if parsed.subparts.len() == 0 {
-		if parsed.ctype.mimetype == "text/plain" {
-			payload.text = parsed.get_body().unwrap();
-		} else if parsed.ctype.mimetype == "text/html" {
-			payload.html = parsed.get_body().unwrap();
+	let mut add_body_part = |x: ParsedMail| {
+		if x.ctype.mimetype == "text/plain" {
+			payload.text = x.get_body().unwrap();
+		} else if x.ctype.mimetype == "text/html" {
+			payload.html = x.get_body().unwrap();
 		}
+		payload.html = x.get_body().unwrap()
+	};
+
+	if parsed.subparts.len() == 0 {
+		add_body_part(parsed);
 	} else {
 		for subpart in parsed.subparts.into_iter() {
 			if subpart.subparts.len() == 0 {
-				println!("x: {:?}", subpart.ctype.mimetype);
-				if subpart.ctype.mimetype == "text/plain" {
-					payload.text = subpart.get_body().unwrap();
-				} else if subpart.ctype.mimetype == "text/html" {
-					payload.html = subpart.get_body().unwrap();
-				}
+				add_body_part(subpart);
 			} else {
 				for subpart in subpart.subparts.into_iter() {
-					if subpart.ctype.mimetype == "text/plain" {
-						payload.text = subpart.get_body().unwrap();
-					} else if subpart.ctype.mimetype == "text/html" {
-						payload.html = subpart.get_body().unwrap();
-					}
+					add_body_part(subpart);
 				}
 			}
 		}
 	}
-	
-	
+
+
 	let win = window::main_window(None);
 	let _ = win.emit_all("mail-received", payload);
 }
