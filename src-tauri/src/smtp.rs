@@ -1,6 +1,5 @@
 use mailin_embedded::{Server, SslConfig, Handler, Response};
 use mailin_embedded::response::{OK};
-use mailparse::parse_mail;
 use mailparse::*;
 use crate::window;
 use tauri::Manager;
