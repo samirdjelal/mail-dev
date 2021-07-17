@@ -15,7 +15,7 @@ class App extends React.Component {
 	componentDidMount() {
 		setTimeout(() => {
 			invoke("start_smtp_server").then().catch()
-		}, 1000000)
+		}, 100)
 		listen("mail-received", (r) => {
 			console.log(r)
 		}).then().catch()
