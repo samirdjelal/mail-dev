@@ -5,13 +5,13 @@ import {connect} from 'react-redux';
 class MailContent extends Component {
 	render() {
 		if (this.props.tab === "Raw")
-			return (<div className="whitespace-pre-line p-2 text-sm font-sans text-gray-600">{this.props.mail.mime}</div>);
+			return (<div className="whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">{this.props.mail.mime}</div>);
 		
 		if (this.props.tab === "Text")
-			return (<div className="whitespace-pre-line p-2 text-sm font-sans text-gray-600">{this.props.mail.text}</div>);
+			return (<div className="whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">{this.props.mail.text}</div>);
 		
 		if (this.props.tab === "Headers")
-			return (<div className="whitespace-pre-line p-2 text-sm font-sans text-gray-600">{this.props.mail.headers.map((header, key) => {
+			return (<div className="whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">{this.props.mail.headers.map((header, key) => {
 				return <div key={key}><span className="font-semibold">{header[0]}</span>: {header[1]}</div>
 			})}</div>);
 		
@@ -22,7 +22,7 @@ class MailContent extends Component {
 				</div>);
 		
 		if (this.props.tab === "HTML-Source")
-			return (<div className="whitespace-pre-line p-2 text-sm font-sans text-gray-600">{this.props.mail.html}</div>);
+			return (<div className="whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">{this.props.mail.html}</div>);
 		
 		if (this.props.tab === "Spam Reports") {
 			if (this.props.mail.spam_score === "") return (<div className="p-2 text-sm font-sans text-gray-600">Loading...</div>)
