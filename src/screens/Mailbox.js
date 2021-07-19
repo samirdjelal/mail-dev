@@ -55,7 +55,7 @@ class Mailbox extends Component {
 					})}
 				</div>
 				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-2 pb-3 overflow-y-auto">
-					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'subject'} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, necessitatibus.</div>
+					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'Subject'}</div>
 					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">
 						From : {this.props.mail.from || 'from'} <br/>
 						To : {this.props.mail.to || 'to'} <br/>
@@ -63,7 +63,9 @@ class Mailbox extends Component {
 					</div>
 					<div className="flex items-center pt-1.5 mb-2">
 						{(this.props.mail.html === "" ? ["Text", "Raw", "Headers", "Spam Reports"] : ["HTML", "HTML-Source", "Text", "Raw", "Headers", "Spam Reports"]).map(item => {
-							return <div key={item} className={`py-1 mr-0.5 px-2 text-sm cursor-pointer select-none whitespace-nowrap ${this.state.tab === item ? 'bg-gray-600 rounded-full text-white' : ''}`} onClick={e => this.setState({tab: item})}>{item}</div>
+							return <div key={item} className={`flex justify-center py-1 mr-0.5 px-2 text-sm cursor-pointer select-none whitespace-nowrap ${this.state.tab === item ? 'bg-gray-600 rounded-full text-white' : ''}`} onClick={e => this.setState({tab: item})}>
+								{(item === "Spam Reports" && this.props.mail.spam_score !== "") ? <Fragment>{item} <div className="ml-1 bg-gray-400 rounded-full text-xs text-white px-2 flex justify-center items-center">{this.props.mail.spam_score}</div></Fragment> : item}
+							</div>
 						})}
 						<button onClick={()=>this.props.deleteMail(this.props.mail.key)}
 							className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete</button>
