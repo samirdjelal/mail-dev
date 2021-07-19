@@ -36,6 +36,10 @@ const mailboxState = createSlice({
 			})
 			return {...state, mails: copy, mail: mail_object};
 		},
+		deleteMail: (state, action) => {
+			let copy = state.mails.filter(mail => mail.key !== action.payload)
+			return {...state, mails: copy, mailIndex: null, mail: {}};
+		},
 	}
 })
 
@@ -44,6 +48,7 @@ export const {
 	addMail,
 	setMailIndex,
 	setSpamScore,
+	deleteMail,
 } = mailboxState.actions;
 
 

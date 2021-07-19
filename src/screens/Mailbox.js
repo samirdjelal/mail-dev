@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {clearMails, setMailIndex, setSpamScore} from "../store/mailboxReducer";
+import {clearMails, deleteMail, setMailIndex, setSpamScore} from "../store/mailboxReducer";
 import MailContent from "../components/MailContent";
 import {Body, fetch} from "@tauri-apps/api/http";
 
@@ -30,11 +30,15 @@ class Mailbox extends Component {
 		return (
 			<div className="flex h-full">
 				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 ">
+					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-400 border-opacity-70 ">
+						<button onClick={()=>this.props.clearMails()} className="bg-red-400 border-b-4 border-red-500 hover:opacity-80 text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete all mails</button>
+					</div>
 					{this.props.mails.map(mail => {
 						return <Fragment key={mail.key}>
 							<div className={`border-b border-gray-400 border-opacity-70 flex items-center py-2 hover:bg-gray-300 hover:bg-opacity-40 cursor-pointer select-none px-2 ${mail.key === this.props.mailIndex ? 'bg-gray-300 bg-opacity-60' : ''}`}
 							     onClick={() => this.selectMail(mail)}>
-								{mail.seen === false && <div className="bg-green-500 h-2 w-2 flex-shrink-0 rounded-full mr-2"></div>}
+								{/*{mail.seen === false && <div className="bg-green-500 h-2 w-2 flex-shrink-0 rounded-full mr-2"></div>}*/}
+								<div className={`h-2 w-2 flex-shrink-0 rounded-full mr-2 ${mail.seen === false ? 'bg-green-500' : 'bg-gray-400 bg-opacity-50'}`}></div>
 								<div className="w-full py-1">
 									<div className="flex items-center">
 										<div className={`truncate text-xs text-gray-600 ${mail.seen === false && 'font-semibold'}`}>{mail.subject}</div>
@@ -51,16 +55,18 @@ class Mailbox extends Component {
 					})}
 				</div>
 				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-2 pb-3 overflow-y-auto">
-					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'subject'}</div>
-					<div className="text-sm">
+					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'subject'} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, necessitatibus.</div>
+					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">
 						From : {this.props.mail.from || 'from'} <br/>
 						To : {this.props.mail.to || 'to'} <br/>
 						Message-ID : {this.props.mail.message_id || 'message_id'} <br/>
 					</div>
-					<div className="flex border-t pt-1.5 mt-1 mb-2">
+					<div className="flex items-center pt-1.5 mb-2">
 						{(this.props.mail.html === "" ? ["Text", "Raw", "Headers", "Spam Reports"] : ["HTML", "HTML-Source", "Text", "Raw", "Headers", "Spam Reports"]).map(item => {
 							return <div key={item} className={`py-1 mr-0.5 px-2 text-sm cursor-pointer select-none whitespace-nowrap ${this.state.tab === item ? 'bg-gray-600 rounded-full text-white' : ''}`} onClick={e => this.setState({tab: item})}>{item}</div>
 						})}
+						<button onClick={()=>this.props.deleteMail(this.props.mail.key)}
+							className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete</button>
 					</div>
 					<div className={`bg-white rounded-md border `}>
 						<MailContent tab={this.state.tab} mail={this.props.mail}/>
@@ -112,6 +118,7 @@ export default withRouter(connect(
 		clearMails,
 		setMailIndex,
 		setSpamScore,
+		deleteMail,
 		
 	}
 )(Mailbox));
