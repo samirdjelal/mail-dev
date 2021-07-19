@@ -60,10 +60,10 @@ class Mailbox extends Component {
 						To : {this.props.mail.to || 'to'} <br/>
 						Message-ID : {this.props.mail.message_id || 'message_id'} <br/>
 					</div>
-					<div className="flex items-center pt-1.5 mb-2">
+					<div className="flex items-center py-2">
 						{(this.props.mail.html === "" ? ["Text", "Raw", "Headers", "Spam Reports"] : ["HTML", "HTML-Source", "Text", "Raw", "Headers", "Spam Reports"]).map(item => {
 							return <div key={item} className={`flex justify-center py-1 mr-0.5 px-2 text-sm cursor-pointer select-none whitespace-nowrap ${this.state.tab === item ? 'bg-gray-600 rounded-full text-white' : ''}`} onClick={e => this.setState({tab: item})}>
-								{(item === "Spam Reports" && this.props.mail.spam_score !== "") ? <Fragment>{item} <div className="ml-1 bg-gray-400 rounded-full text-xs text-white px-2 flex justify-center items-center">{this.props.mail.spam_score}</div></Fragment> : item}
+								{(item === "Spam Reports" && this.props.mail.spam_score !== "") ? <Fragment>{item} <div className={`ml-1 rounded-full text-xs px-2 flex justify-center items-center font-semibold ${this.state.tab === item ? 'bg-white text-gray-500' : 'bg-gray-500 text-white'}`}>{this.props.mail.spam_score}</div></Fragment> : item}
 							</div>
 						})}
 						<button onClick={()=>this.props.deleteMail(this.props.mail.key)}
