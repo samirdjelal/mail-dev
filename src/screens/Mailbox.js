@@ -31,13 +31,12 @@ class Mailbox extends Component {
 			<div className="flex h-full">
 				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 border-opacity-70">
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
-						<button onClick={()=>this.props.clearMails()} className="text-red-500 hover:opacity-70 rounded-md px-1.5 py-0.5 uppercase text-xs font-semibold">Delete all mails</button>
+						<button onClick={()=>this.props.clearMails()} className="text-gray-500 hover:text-red-500 rounded-md px-1.5 py-0.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
 					{this.props.mails.map(mail => {
 						return <Fragment key={mail.key}>
 							<div className={`border-b border-gray-300 border-opacity-70 flex items-center py-2 hover:bg-gray-300 hover:bg-opacity-40 cursor-pointer select-none px-2 ${mail.key === this.props.mailIndex ? 'bg-gray-300 bg-opacity-50' : ''}`}
 							     onClick={() => this.selectMail(mail)}>
-								{/*{mail.seen === false && <div className="bg-green-500 h-2 w-2 flex-shrink-0 rounded-full mr-2"></div>}*/}
 								<div className={`h-2 w-2 flex-shrink-0 rounded-full mr-2 ${mail.seen === false ? 'bg-green-500' : 'bg-gray-400 bg-opacity-50'}`}></div>
 								<div className="w-full py-1">
 									<div className="flex items-center">
