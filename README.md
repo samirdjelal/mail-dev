@@ -27,5 +27,6 @@ tauri dev
 ### Build
 ```text
 npm run tailwind:prod
+npm run build
 tauri build
 ```
