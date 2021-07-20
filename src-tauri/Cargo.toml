@@ -15,7 +15,7 @@ tauri-build = { version = "1.0.0-beta.2" }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-mailin-embedded = { version = "^0", features = ["rtls"] }
+mailin-embedded = { version = "0.6.1", features = ["rtls"] }
 mailparse = "0.13.5"
 
 [dependencies.tauri]

@@ -35,7 +35,7 @@ impl Handler for MyHandler {
 		self.mime.push(String::from_utf8(Vec::from(buf)).unwrap());
 		Ok(())
 	}
-
+	
 	fn data_end(&mut self) -> Response {
 		let mime = self.mime.join("");
 		self::parse(mime.clone());
@@ -45,7 +45,7 @@ impl Handler for MyHandler {
 
 #[tauri::command]
 pub async fn start_smtp_server() {
-	println!("Smtp server running: 127.0.0.1:2525");
+	// println!("Smtp server running: 127.0.0.1:2525");
 	let handler = MyHandler::new();
 	let mut server = Server::new(handler);
 	server.with_name("localhost")
@@ -69,7 +69,7 @@ pub fn parse(mime: String) {
 		text: "".to_string(),
 		html: "".to_string(),
 	};
-
+	
 	let parsed = parse_mail(mime.as_ref()).unwrap();
 	// println!("parsed: {:?}", parsed);
 	for header in parsed.headers.iter() {
@@ -83,7 +83,7 @@ pub fn parse(mime: String) {
 			_ => {}
 		}
 	}
-
+	
 	let mut add_body_part = |x: ParsedMail| {
 		if x.ctype.mimetype == "text/plain" {
 			payload.text = x.get_body().unwrap();
@@ -92,7 +92,7 @@ pub fn parse(mime: String) {
 		}
 		payload.html = x.get_body().unwrap()
 	};
-
+	
 	if parsed.subparts.len() == 0 {
 		add_body_part(parsed);
 	} else {
@@ -106,8 +106,7 @@ pub fn parse(mime: String) {
 			}
 		}
 	}
-
-
+	
 	let win = window::main_window(None);
 	let _ = win.emit_all("mail-received", payload);
 }
