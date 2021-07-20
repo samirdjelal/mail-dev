@@ -6,7 +6,7 @@ import {setFramework} from "../store/settingReducer";
 class Settings extends Component {
 	render() {
 		return (
-			<div className="h-full w-full text-lg text-gray-700 py-3 px-4">
+			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 overflow-y-auto">
 				<h3>Settings</h3>
 				
 				<div className="mb-3">
@@ -108,7 +108,7 @@ class Settings extends Component {
 						</p>
 						
 						<code className="font-mono mb-2 block bg-gray-900 shadow-inner rounded-md p-2 text-gray-300">
-							{`require 'net/smtp'\n\nmessage = <<-END.split("\n").map!(&:strip).join("\n")\nFrom: Private Person <from@${this.props.ipAddress}>\nTo: A Test User <to@${this.props.ipAddress}>\nSubject: MAIL-DEV!\n\nThis is a test e-mail message from HELO.\nEND\n\nNet::SMTP.start('${this.props.ipAddress}',\n              ${this.props.port},\n              '${this.props.ipAddress}') do |smtp|\nsmtp.send_message message, 'from@${this.props.ipAddress}',\n                           'to@${this.props.ipAddress}'\nend`}
+							{`require 'net/smtp'\n\nmessage = <<-END.split("\n").map!(&:strip).join("\n")\nFrom: Private Person <from@${this.props.ipAddress}>\nTo: A Test User <to@${this.props.ipAddress}>\nSubject: MAIL-DEV!\n\nThis is a test e-mail message from MAIL-DEV.\nEND\n\nNet::SMTP.start('${this.props.ipAddress}',\n              ${this.props.port},\n              '${this.props.ipAddress}') do |smtp|\nsmtp.send_message message, 'from@${this.props.ipAddress}',\n                           'to@${this.props.ipAddress}'\nend`}
 						</code>
 
 						

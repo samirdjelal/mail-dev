@@ -24,6 +24,10 @@ class Mailbox extends Component {
 					</svg>
 				</div>
 				<div className="font-semibold text-gray-500 mb-2">No mail to show!</div>
+				<div className="text-sm text-gray-500 mb-2">Send emails using this smtp server:</div>
+				<div className="font-mono text-sm mb-2 block bg-gray-900 shadow-inner rounded-md px-2 py-1 text-gray-300">
+					{this.props.ipAddress}:{this.props.port}
+				</div>
 			</div>)
 		
 		return (
@@ -113,6 +117,8 @@ class Mailbox extends Component {
 
 export default withRouter(connect(
 	state => ({
+		ipAddress: state.setting.ipAddress,
+		port: state.setting.port,
 		mails: state.mailbox.mails,
 		mailIndex: state.mailbox.mailIndex,
 		mail: state.mailbox.mail,
