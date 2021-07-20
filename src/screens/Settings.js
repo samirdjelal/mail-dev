@@ -1,33 +1,60 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {setFramework} from "../store/settingReducer";
+import {setFramework, setIpAddress, setPort} from "../store/settingReducer";
 
 class Settings extends Component {
 	render() {
 		return (
 			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 overflow-y-auto">
-				<h3>Settings</h3>
+				<h3 className="mb-2">Settings</h3>
 				
-				<div className="mb-3">
-					<label for="framework" class="block text-sm font-medium text-gray-700">Framework</label>
-					<select onChange={e => this.props.setFramework(e.target.value)} defaultValue={this.props.framework}
-					        id="framework" name="framework" class="mt-1 block w-64 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 focus:ring-opacity-40 sm:text-sm rounded-md">
-						<option>Laravel</option>
-						<option>Symfony</option>
-						<option>WordPress</option>
-						<option>Yii Framework</option>
-						<option>Nodemailer</option>
-						<option>Ruby on Rails</option>
-						<option>Ruby (net/smtp)</option>
-					</select>
+				<div className="bg-white rounded-md px-4 py-2 border mb-2">
+					<h3 className="font-semibold mb-2">SMTP configuration</h3>
+					<div className="flex pb-2">
+						<div className="mr-1 w-64">
+							<label for="ipAddress" class="block text-sm font-medium text-gray-700">IP Address</label>
+							<div class="mt-1">
+								<input defaultValue={this.props.ipAddress} onChange={e => this.props.setIpAddress(e.target.value)} type="text" name="ipAddress" id="ipAddress" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-l-md"/>
+							</div>
+						</div>
+						<div className="mr-2 w-32">
+							<label for="port" class="block text-sm font-medium text-gray-700">Port</label>
+							<div class="mt-1">
+								<input defaultValue={this.props.port} onChange={e => this.props.setPort(e.target.value)} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
+							</div>
+						</div>
+						<div>
+							<label for="port" class="block text-sm font-medium text-gray-700"> &nbsp; </label>
+							<div class="mt-1">
+								<button type="button" class="inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+									Start Server
+								</button>
+							</div>
+						</div>
+					
+					
+					</div>
 				</div>
 				
-				<div className="bg-white rounded-md px-4 py-2 border">
-					<h3 className="font-semibold">{this.props.framework} configuration</h3>
-					<p class="py-2 text-sm text-gray-600">
-						If you are using Vagrant/Homestead, use <code class="bg-gray-100 rounded text-gray-700 px-2 py-1.5 my-2 font-mono mx-1">10.0.2.2</code> as your SMTP-Host.<br/>
-						For Docker, use <code class="bg-gray-100 rounded text-gray-700 px-2 py-1.5 my-2 font-mono mx-1">host.docker.internal</code> as your SMTP-Host.
+				<div className="bg-white rounded-md px-4 py-2 border mb-4">
+					<div className="">
+					<h3 className="font-semibold mb-2">Framework configuration</h3>
+						<select onChange={e => this.props.setFramework(e.target.value)} defaultValue={this.props.framework}
+						        class="mt-1 block w-64 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 focus:ring-opacity-40 sm:text-sm rounded-md">
+							<option>Laravel</option>
+							<option>Symfony</option>
+							<option>WordPress</option>
+							<option>Yii Framework</option>
+							<option>Nodemailer</option>
+							<option>Ruby on Rails</option>
+							<option>Ruby (net/smtp)</option>
+						</select>
+					</div>
+					
+					<p class="py-2 text-sm text-gray-600 border-b-2 border-dashed">
+						If you are using Vagrant/Homestead, use <span className="font-semibold font-mono">"10.0.2.2"</span> as your SMTP-Host.<br/>
+						For Docker, use <span className="font-semibold font-mono">"host.docker.internal"</span> as your SMTP-Host.
 					</p>
 					
 					{this.props.framework === 'Laravel' && <div className="whitespace-pre-wrap text-sm text-gray-600">
@@ -99,7 +126,7 @@ class Settings extends Component {
 						<code className="font-mono mb-2 block bg-gray-900 shadow-inner rounded-md p-2 text-gray-300">
 							{`config.action_mailer.delivery_method = :smtp \nconfig.action_mailer.smtp_settings = {\n\t:address => '${this.props.ipAddress}',\n\t:domain => '${this.props.ipAddress}',\n\t:port => '${this.props.port}',\n}`}
 						</code>
-
+					
 					</div>}
 					
 					{this.props.framework === 'Ruby (net/smtp)' && <div className="whitespace-pre-wrap text-sm text-gray-600">
@@ -110,14 +137,11 @@ class Settings extends Component {
 						<code className="font-mono mb-2 block bg-gray-900 shadow-inner rounded-md p-2 text-gray-300">
 							{`require 'net/smtp'\n\nmessage = <<-END.split("\n").map!(&:strip).join("\n")\nFrom: Private Person <from@${this.props.ipAddress}>\nTo: A Test User <to@${this.props.ipAddress}>\nSubject: MAIL-DEV!\n\nThis is a test e-mail message from MAIL-DEV.\nEND\n\nNet::SMTP.start('${this.props.ipAddress}',\n              ${this.props.port},\n              '${this.props.ipAddress}') do |smtp|\nsmtp.send_message message, 'from@${this.props.ipAddress}',\n                           'to@${this.props.ipAddress}'\nend`}
 						</code>
-
-						
-
-
 					
 					</div>}
 				
 				</div>
+			
 			</div>
 		);
 	}
@@ -132,6 +156,8 @@ export default withRouter(connect(
 		port: state.setting.port,
 	}),
 	{
+		setIpAddress,
+		setPort,
 		setFramework,
 	}
 )(Settings));
