@@ -24,14 +24,13 @@ class Mailbox extends Component {
 					</svg>
 				</div>
 				<div className="font-semibold text-gray-500 mb-2">No mail to show!</div>
-				<div className="text-sm text-gray-400">Send emails using this smtp server: <br/>127.0.0.1:2525</div>
 			</div>)
 		
 		return (
 			<div className="flex h-full">
 				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 border-opacity-70">
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
-						<button onClick={()=>this.props.clearMails()} className="text-gray-500 hover:text-red-500 rounded-md px-1.5 py-0.5 uppercase text-xs font-semibold">Delete all mails</button>
+						<button onClick={() => this.props.clearMails()} className="text-gray-500 hover:text-red-500 rounded-md px-1.5 py-0.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
 					{this.props.mails.map(mail => {
 						return <Fragment key={mail.key}>
@@ -63,11 +62,14 @@ class Mailbox extends Component {
 					<div className="flex items-center py-2">
 						{(this.props.mail.html === "" ? ["Text", "Raw", "Headers", "Spam Reports"] : ["HTML", "HTML-Source", "Text", "Raw", "Headers", "Spam Reports"]).map(item => {
 							return <div key={item} className={`flex justify-center py-1 mr-0.5 px-2 text-sm cursor-pointer select-none whitespace-nowrap ${this.state.tab === item ? 'bg-gray-600 rounded-full text-white' : ''}`} onClick={e => this.setState({tab: item})}>
-								{(item === "Spam Reports" && this.props.mail.spam_score !== "") ? <Fragment>{item} <div className={`ml-1 rounded-full text-xs px-2 flex justify-center items-center font-semibold ${this.state.tab === item ? 'bg-white text-gray-500' : 'bg-gray-500 text-white'}`}>{this.props.mail.spam_score}</div></Fragment> : item}
+								{(item === "Spam Reports" && this.props.mail.spam_score !== "") ? <Fragment>{item}
+									<div className={`ml-1 rounded-full text-xs px-2 flex justify-center items-center font-semibold ${this.state.tab === item ? 'bg-white text-gray-500' : 'bg-gray-500 text-white'}`}>{this.props.mail.spam_score}</div>
+								</Fragment> : item}
 							</div>
 						})}
-						<button onClick={()=>this.props.deleteMail(this.props.mail.key)}
-							className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete</button>
+						<button onClick={() => this.props.deleteMail(this.props.mail.key)}
+						        className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete
+						</button>
 					</div>
 					<div className={`bg-white rounded-md border `}>
 						<MailContent tab={this.state.tab} mail={this.props.mail}/>
