@@ -29,7 +29,7 @@ class App extends Component {
 					<Switch>
 						<Route path="/mailbox" component={Mailbox} exact/>
 						<Route path="/settings" component={Settings} exact/>
-						<Redirect to="/settings"/>
+						<Redirect to="/mailbox"/>
 					</Switch>
 				</div>
 			</div>
