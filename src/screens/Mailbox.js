@@ -56,7 +56,7 @@ class Mailbox extends Component {
 									<div className="flex items-center">
 										<div className={`truncate text-xs text-gray-600 ${mail.seen === false && 'font-semibold'}`}>{mail.subject}</div>
 									</div>
-									<div className="text-xs text-gray-500">{mail.to}</div>
+									<div className="text-xs text-gray-500 truncate">{mail.to}</div>
 								</div>
 								<div className="flex-shrink-0 ml-2">
 									<svg className="w-3 h-3 fill-current text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512">
