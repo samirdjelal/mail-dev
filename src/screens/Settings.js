@@ -12,7 +12,7 @@ class Settings extends Component {
 	
 	render() {
 		return (
-			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 overflow-y-auto">
+			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 scroll overflow-y-auto">
 				<h3 className="mb-2">Settings</h3>
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-2">

@@ -43,7 +43,7 @@ class Mailbox extends Component {
 		
 		return (
 			<div className="flex h-full">
-				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 border-opacity-70">
+				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 border-opacity-70 scroll overflow-y-auto">
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
 						<button onClick={() => this.props.clearMails()} className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
@@ -67,7 +67,7 @@ class Mailbox extends Component {
 						</Fragment>
 					})}
 				</div>
-				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-2 pb-3 overflow-y-auto">
+				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-2 pb-3 scroll overflow-y-auto">
 					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'Subject'}</div>
 					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">
 						From : {this.props.mail.from || 'from'} <br/>
@@ -89,7 +89,7 @@ class Mailbox extends Component {
 					<div className={`bg-white rounded-md border `}>
 						<MailContent tab={this.state.tab} mail={this.props.mail}/>
 					</div>
-				</div> : <div className="h-full bg-gray-50 w-full px-2 pb-3 overflow-y-auto flex flex-col justify-center items-center w-full text-lg text-gray-700">
+				</div> : <div className="h-full bg-gray-50 w-full px-2 pb-3 scroll overflow-y-auto flex flex-col justify-center items-center w-full text-lg text-gray-700">
 					<div>
 						<svg className="w-20 fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
 							<path className="opacity-40" d="M432 64H144a144 144 0 0 1 144 144v208a32 32 0 0 1-32 32h288a32 32 0 0 0 32-32V208A144 144 0 0 0 432 64zm80 208a16 16 0 0 1-16 16h-32a16 16 0 0 1-16-16v-48h-56a8 8 0 0 1-8-8v-16a8 8 0 0 1 8-8h104a16 16 0 0 1 16 16z"/>
