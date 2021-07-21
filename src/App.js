@@ -11,8 +11,6 @@ import {addMail} from "./store/mailboxReducer";
 class App extends Component {
 	componentDidMount() {
 		listen("mail-received", (res) => {
-			console.log(res.payload)
-			console.log(typeof res.payload)
 			this.props.addMail(res.payload)
 		}).then().catch()
 	}
