@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {setFramework, setIpAddress, setPort} from "../store/settingReducer";
+import {setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
+import {invoke} from "@tauri-apps/api";
 
 class Settings extends Component {
+	constructor(props) {
+		super(props);
+		this.startServer = this.startServer.bind(this);
+	}
+	
 	render() {
 		return (
 			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 overflow-y-auto">
@@ -11,7 +17,8 @@ class Settings extends Component {
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-2">
 					<h3 className="font-semibold mb-2">SMTP configuration</h3>
-					<div className="flex pb-2">
+					<div className={`relative flex pb-2 ${this.props.srvStatus === true ? 'opacity-60' : ''}`}>
+						{this.props.srvStatus === true && <div className="absolute w-full h-full bg-white opacity-10 z-40"></div>}
 						<div className="mr-1 w-64">
 							<label for="ipAddress" class="block text-sm font-medium text-gray-700">IP Address</label>
 							<div class="mt-1">
@@ -21,13 +28,14 @@ class Settings extends Component {
 						<div className="mr-2 w-32">
 							<label for="port" class="block text-sm font-medium text-gray-700">Port</label>
 							<div class="mt-1">
-								<input defaultValue={this.props.port} onChange={e => this.props.setPort(e.target.value)} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
+								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value))} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
 							</div>
 						</div>
 						<div>
 							<label for="port" class="block text-sm font-medium text-gray-700"> &nbsp; </label>
 							<div class="mt-1">
-								<button type="button" class="inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+								<button onClick={this.startServer}
+								        type="button" class={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-green-500 hover:bg-green-600 ${this.props.srvStatus === true && 'opacity-80'}`}>
 									Start Server
 								</button>
 							</div>
@@ -39,7 +47,7 @@ class Settings extends Component {
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-4">
 					<div className="">
-					<h3 className="font-semibold mb-2">Framework configuration</h3>
+						<h3 className="font-semibold mb-2">Framework configuration</h3>
 						<select onChange={e => this.props.setFramework(e.target.value)} defaultValue={this.props.framework}
 						        class="mt-1 block w-64 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 focus:ring-opacity-40 sm:text-sm rounded-md">
 							<option>Laravel</option>
@@ -147,15 +155,24 @@ class Settings extends Component {
 	}
 	
 	
+	startServer() {
+		invoke("start_smtp_server", {
+			address: `${this.props.ipAddress}:${this.props.port}`
+		}).then().catch()
+		this.props.setSrvStatus(true)
+	}
+	
 }
 
 export default withRouter(connect(
 	state => ({
+		srvStatus: state.setting.srvStatus,
 		framework: state.setting.framework,
 		ipAddress: state.setting.ipAddress,
 		port: state.setting.port,
 	}),
 	{
+		setSrvStatus,
 		setIpAddress,
 		setPort,
 		setFramework,

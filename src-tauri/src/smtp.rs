@@ -44,13 +44,13 @@ impl Handler for MyHandler {
 }
 
 #[tauri::command]
-pub async fn start_smtp_server() {
-	// println!("Smtp server running: 127.0.0.1:2525");
+pub async fn start_smtp_server(address: Option<String>) {
+	let address = address.unwrap_or_else(|| "127.0.0.1:25".into());
 	let handler = MyHandler::new();
 	let mut server = Server::new(handler);
 	server.with_name("localhost")
 		.with_ssl(SslConfig::None).unwrap()
-		.with_addr("127.0.0.1:2525").unwrap();
+		.with_addr(address).unwrap();
 	match server.serve() {
 		Ok(_) => {}
 		Err(error) => println!("Error: {:?}", error)

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {invoke} from "@tauri-apps/api";
 import {listen} from "@tauri-apps/api/event";
 import Sidebar from "./components/Sidebar";
 import Mailbox from "./screens/Mailbox";
@@ -11,9 +10,6 @@ import {addMail} from "./store/mailboxReducer";
 
 class App extends Component {
 	componentDidMount() {
-		setTimeout(() => {
-			invoke("start_smtp_server").then().catch()
-		}, 100)
 		listen("mail-received", (res) => {
 			console.log(res.payload)
 			console.log(typeof res.payload)
