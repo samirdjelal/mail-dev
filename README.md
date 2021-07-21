@@ -16,7 +16,11 @@ Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/e
 - [ ] Attachment support
 - [ ] Forward emails
 
-<img src="screenshot.png" alt="Mail-Dev"/>
+<img src="screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
+<br/>
+<img src="screenshots/html-mail.png" alt="Mail-Dev HTML Mail"/>
+<br/>
+<img src="screenshots/setting.png" alt="Mail-Dev SETTING"/>
 
 ### Dev
 ```text
