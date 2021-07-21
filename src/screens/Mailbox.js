@@ -4,6 +4,8 @@ import {withRouter} from "react-router";
 import {clearMails, deleteMail, setMailIndex, setSpamScore} from "../store/mailboxReducer";
 import MailContent from "../components/MailContent";
 import {Body, fetch} from "@tauri-apps/api/http";
+import {invoke} from "@tauri-apps/api";
+import {setSrvStatus} from "../store/settingReducer";
 
 class Mailbox extends Component {
 	constructor(props) {
@@ -12,6 +14,7 @@ class Mailbox extends Component {
 			tab: "HTML",
 			index: 0,
 		}
+		this.startServer = this.startServer.bind(this);
 	}
 	
 	render() {
@@ -25,8 +28,14 @@ class Mailbox extends Component {
 				</div>
 				<div className="font-semibold text-gray-500 mb-2">No mail to show!</div>
 				<div className="text-sm text-gray-500 mb-2">Send emails using this smtp server:</div>
-				<div className="font-mono text-sm mb-2 block bg-gray-900 shadow-inner rounded-md px-2 py-1 text-gray-300">
-					{this.props.ipAddress}:{this.props.port}
+				<div className="flex items-center mb-2">
+					<div className={`font-mono text-sm block bg-gray-900 shadow-inner rounded-md px-2 py-1 ${this.props.srvStatus === true ? 'bg-green-200 text-gray-900' : 'bg-gray-900 text-gray-300'}`}>
+						{this.props.ipAddress}:{this.props.port}
+					</div>
+					<div onClick={this.startServer}
+					        type="button" class={`underline ml-2 cursor-pointer font-semibold hover:opacity-80 text-xs ${this.props.srvStatus === true && 'hidden'}`}>
+						Start Server
+					</div>
 				</div>
 			</div>)
 		
@@ -34,7 +43,7 @@ class Mailbox extends Component {
 			<div className="flex h-full">
 				<div className="h-full flex-shrink-0 w-52 lg:w-80 xl:w-96 border-r border-gray-300 border-opacity-70">
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
-						<button onClick={() => this.props.clearMails()} className="text-gray-500 hover:text-red-500 rounded-md px-1.5 py-0.5 uppercase text-xs font-semibold">Delete all mails</button>
+						<button onClick={() => this.props.clearMails()} className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
 					{this.props.mails.map(mail => {
 						return <Fragment key={mail.key}>
@@ -92,6 +101,10 @@ class Mailbox extends Component {
 		);
 	}
 	
+	startServer() {
+		invoke("start_smtp_server", {address: `${this.props.ipAddress}:${this.props.port}`}).then().catch()
+		this.props.setSrvStatus(true)
+	}
 	
 	selectMail(mail) {
 		this.props.setMailIndex(mail.key)
@@ -117,6 +130,7 @@ class Mailbox extends Component {
 
 export default withRouter(connect(
 	state => ({
+		srvStatus: state.setting.srvStatus,
 		ipAddress: state.setting.ipAddress,
 		port: state.setting.port,
 		mails: state.mailbox.mails,
@@ -124,6 +138,7 @@ export default withRouter(connect(
 		mail: state.mailbox.mail,
 	}),
 	{
+		setSrvStatus,
 		clearMails,
 		setMailIndex,
 		setSpamScore,

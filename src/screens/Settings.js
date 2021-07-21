@@ -156,9 +156,7 @@ class Settings extends Component {
 	
 	
 	startServer() {
-		invoke("start_smtp_server", {
-			address: `${this.props.ipAddress}:${this.props.port}`
-		}).then().catch()
+		invoke("start_smtp_server", {address: `${this.props.ipAddress}:${this.props.port}`}).then().catch()
 		this.props.setSrvStatus(true)
 	}
 	
