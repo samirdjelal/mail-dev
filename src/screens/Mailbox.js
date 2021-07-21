@@ -29,13 +29,15 @@ class Mailbox extends Component {
 				<div className="font-semibold text-gray-500 mb-2">No mail to show!</div>
 				<div className="text-sm text-gray-500 mb-2">Send emails using this smtp server:</div>
 				<div className="flex items-center mb-2">
-					<div className={`font-mono text-sm block bg-gray-900 shadow-inner rounded-md px-2 py-1 ${this.props.srvStatus === true ? 'bg-green-200 text-gray-900' : 'bg-gray-900 text-gray-300'}`}>
-						{this.props.ipAddress}:{this.props.port}
+					<div className="font-mono text-sm block bg-gray-900 shadow-inner rounded-md px-2 py-1 text-gray-300">{this.props.ipAddress}:{this.props.port}</div>
+					<div class={`underline ml-2 cursor-pointer font-semibold hover:opacity-80 text-xs ${this.props.srvStatus === true && 'hidden'}`}
+					     onClick={this.startServer}>Start Server
 					</div>
-					<div onClick={this.startServer}
-					        type="button" class={`underline ml-2 cursor-pointer font-semibold hover:opacity-80 text-xs ${this.props.srvStatus === true && 'hidden'}`}>
-						Start Server
-					</div>
+					{this.props.srvStatus === true && <div>
+						<svg className="ml-2 h-4 w-4 fill-current text-green-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+							<path d="M504 256c0 136.967-111.033 248-248 248S8 392.967 8 256 119.033 8 256 8s248 111.033 248 248zM227.314 387.314l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.249-16.379-6.249-22.628 0L216 308.118l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.249 16.379 6.249 22.628.001z"/>
+						</svg>
+					</div>}
 				</div>
 			</div>)
 		

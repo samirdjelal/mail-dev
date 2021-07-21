@@ -28,7 +28,7 @@ class Settings extends Component {
 						<div className="mr-2 w-32">
 							<label for="port" class="block text-sm font-medium text-gray-700">Port</label>
 							<div class="mt-1">
-								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value))} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
+								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value, 10))} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
 							</div>
 						</div>
 						<div>
