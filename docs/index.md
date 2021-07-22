@@ -1,37 +1,23 @@
-## Welcome to GitHub Pages
+## Mail-Dev
 
-You can use the [editor on GitHub](https://github.com/samirdjelal/mail-dev/edit/main/docs/index.md) to maintain and preview the content for your website in Markdown files.
+Cross-platform, Local SMTP Server For Email Testing/Debugging
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+![Spam Score](/screenshots/spam-score.png)
+<br/>
+![Spam Score](/screenshots/html-mail.png)
+<br/>
+![Setting](/screenshots/setting.png)
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+### Dev
+```zsh
+npm run tailwind:dev
+npm run dev
+tauri dev
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/samirdjelal/mail-dev/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+### Build
+```zsh
+npm run tailwind:prod
+npm run build
+tauri build
+```
