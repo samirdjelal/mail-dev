@@ -2,11 +2,11 @@
 
 Cross-platform, Local SMTP Server For Email Testing/Debugging
 
-![Spam Score](/screenshots/spam-score.png)
+![Spam Score](https://samirdjelal.github.io/mail-dev/screenshots/spam-score.png)
 <br/>
-![Spam Score](/screenshots/html-mail.png)
+![Spam Score](https://samirdjelal.github.io/mail-dev/screenshots/html-mail.png)
 <br/>
-![Setting](/screenshots/setting.png)
+![Setting](https://samirdjelal.github.io/mail-dev/screenshots/setting.png)
 
 ### Dev
 ```zsh
