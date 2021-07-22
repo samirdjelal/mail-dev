@@ -1,2 +1,4 @@
 theme: jekyll-theme-cayman
 show_downloads: true
+title: Mail-Dev
+description: Local SMTP Server For Email Testing/Debugging
