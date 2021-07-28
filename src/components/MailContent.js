@@ -32,7 +32,7 @@ class MailContent extends Component {
 				<div className="h-100 overflow-y-auto scroll border-t-2 border-dashed border-coolGray-300 dark:border-warmGray-700 pt-2">
 					<table className="w-full border-collapse text-coolGray-700 dark:text-warmGray-200">
 						<thead>
-							<tr className="text-coolGray-600 dark:text-warmGray-400 text-2xs">
+							<tr className="text-coolGray-600 dark:text-warmGray-400 text-xs">
 								<th className="uppercase text-xs font-semibold text-left pr-4 w-16">Score</th>
 								<th className="uppercase text-xs font-semibold text-left">Description</th>
 							</tr>
@@ -40,8 +40,8 @@ class MailContent extends Component {
 						<tbody>
 							{this.props.mail.spam_rules.map((rule, index) => {
 								return <tr key={index} className="bg-coolGray-200 dark:bg-warmGray-800 even:bg-opacity-40 odd:bg-opacity-20">
-									<td className="py-2 text-sm text-coolGray-900 dark:text-warmGray-50 font-mono text-right pr-4 font-semibold">{rule.score}</td>
-									<td className="py-2 text-sm text-coolGray-500 dark:text-warmGray-400 font-mono">{rule.description}</td>
+									<td className="py-2 text-xs text-coolGray-900 dark:text-warmGray-50 font-mono text-right pr-4 font-semibold">{rule.score}</td>
+									<td className="py-2 text-xs text-coolGray-500 dark:text-warmGray-400 font-mono">{rule.description}</td>
 								</tr>
 							})}
 						</tbody>

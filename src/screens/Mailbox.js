@@ -47,7 +47,7 @@ class Mailbox extends Component {
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
 						<button onClick={() => this.props.clearMails()} className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
-					{this.props.mails.map(mail => {
+					{this.props.mails.reverse().map(mail => {
 						return <Fragment key={mail.key}>
 							<div className={`border-b border-gray-300 border-opacity-70 flex items-center py-2 hover:bg-gray-300 hover:bg-opacity-40 cursor-pointer select-none px-2 ${mail.key === this.props.mailIndex ? 'bg-gray-300 bg-opacity-50' : ''}`}
 							     onClick={() => this.selectMail(mail)}>
