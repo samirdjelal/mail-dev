@@ -16,7 +16,7 @@ struct Payload {
 	message_id: String,
 	subject: String,
 	x_priority: String,
-	attachments: Vec<(String, String, String)>,
+	attachments: Vec<(String, String, Option<String>, Option<Vec<u8>>)>,
 }
 
 #[derive(Clone, Debug)]
@@ -92,12 +92,23 @@ pub fn parse(mime: String) {
 	}
 	
 	let mut add_body_part = |x: ParsedMail| {
-		if x.ctype.mimetype == "text/plain" {
-			payload.text = x.get_body().unwrap();
-		} else if x.ctype.mimetype == "text/html" {
-			payload.html = x.get_body().unwrap();
-		} else {
-			if x.get_content_disposition().disposition == DispositionType::Attachment {
+		match x.get_content_disposition().disposition {
+			DispositionType::Inline => {
+				if x.ctype.mimetype == "text/plain" {
+					payload.text = x.get_body().unwrap();
+				} else if x.ctype.mimetype == "text/html" {
+					payload.html = x.get_body().unwrap();
+				} else {
+					payload.html = x.get_body().unwrap();
+				}
+			}
+			// DispositionType::FormData => {
+			//
+			// }
+			// DispositionType::Extension(ext) => {
+			//
+			// }
+			DispositionType::Attachment => {
 				let filename = x.get_content_disposition().params.get("filename").unwrap().to_owned();
 				
 				let mut content_type: String = String::new();
@@ -109,12 +120,16 @@ pub fn parse(mime: String) {
 				
 				match x.get_body_encoded() {
 					Body::Base64(body) => {
-						let body = String::from_utf8(Vec::from(body.get_raw())).unwrap();
-						payload.attachments.push((filename, content_type, body));
+						let binary = body.get_decoded().unwrap();
+						payload.attachments.push((filename, content_type, None, Some(binary)));
 					}
-					_ => {}
+					_ => {
+						let text = x.get_body().unwrap();
+						payload.attachments.push((filename, content_type, Some(text), None));
+					}
 				};
 			}
+			_ => {}
 		}
 	};
 	
