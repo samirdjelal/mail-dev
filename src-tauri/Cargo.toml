@@ -1,6 +1,6 @@
 [package]
 name = "mail-dev"
-version = "0.1.0"
+version = "0.3.1"
 description = "Mail Dev"
 authors = ["Samir Djelal"]
 license = "MIT"
@@ -19,7 +19,7 @@ mailin-embedded = { version = "0.6.1", features = ["rtls"] }
 mailparse = "0.13.5"
 
 [dependencies.tauri]
-version = "1.0.0-beta"
+version = "1.0.0-beta.7"
 features = ["api-all"]
 
 [features]

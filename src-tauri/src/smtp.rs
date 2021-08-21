@@ -3,6 +3,7 @@ use mailin_embedded::response::{OK};
 use mailparse::*;
 use crate::window;
 use tauri::Manager;
+use mailparse::body::Body;
 
 #[derive(Clone, serde::Serialize, Debug)]
 struct Payload {
@@ -15,6 +16,7 @@ struct Payload {
 	message_id: String,
 	subject: String,
 	x_priority: String,
+	attachments: Vec<(String, String, String)>,
 }
 
 #[derive(Clone, Debug)]
@@ -43,6 +45,8 @@ impl Handler for MyHandler {
 	}
 }
 
+// Start the SMTP server
+// bind to custom port, fallback to 25.
 #[tauri::command]
 pub async fn start_smtp_server(address: Option<String>) {
 	let address = address.unwrap_or_else(|| "127.0.0.1:25".into());
@@ -57,6 +61,7 @@ pub async fn start_smtp_server(address: Option<String>) {
 	}
 }
 
+// Parse the mail content and send it to the webview
 pub fn parse(mime: String) {
 	let mut payload = Payload {
 		mime: mime.clone(),
@@ -68,10 +73,12 @@ pub fn parse(mime: String) {
 		x_priority: "".to_string(),
 		text: "".to_string(),
 		html: "".to_string(),
+		attachments: vec![],
 	};
 	
 	let parsed = parse_mail(mime.as_ref()).unwrap();
-	// println!("parsed: {:?}", parsed);
+	// println!("{:?}", parsed);
+	
 	for header in parsed.headers.iter() {
 		payload.headers.push((header.get_key(), header.get_value()));
 		match header.get_key().as_str() {
@@ -89,8 +96,26 @@ pub fn parse(mime: String) {
 			payload.text = x.get_body().unwrap();
 		} else if x.ctype.mimetype == "text/html" {
 			payload.html = x.get_body().unwrap();
+		} else {
+			if x.get_content_disposition().disposition == DispositionType::Attachment {
+				let filename = x.get_content_disposition().params.get("filename").unwrap().to_owned();
+				
+				let mut content_type: String = String::new();
+				for header in x.get_headers() {
+					if header.get_key() == "Content-Type" {
+						content_type = header.get_value()
+					}
+				}
+				
+				match x.get_body_encoded() {
+					Body::Base64(body) => {
+						let body = String::from_utf8(Vec::from(body.get_raw())).unwrap();
+						payload.attachments.push((filename, content_type, body));
+					}
+					_ => {}
+				};
+			}
 		}
-		payload.html = x.get_body().unwrap()
 	};
 	
 	if parsed.subparts.len() == 0 {

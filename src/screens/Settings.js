@@ -20,22 +20,22 @@ class Settings extends Component {
 					<div className={`relative flex pb-2 ${this.props.srvStatus === true ? 'opacity-60' : ''}`}>
 						{this.props.srvStatus === true && <div className="absolute w-full h-full bg-white opacity-10 z-40"></div>}
 						<div className="mr-1 w-64">
-							<label for="ipAddress" class="block text-sm font-medium text-gray-700">IP Address</label>
-							<div class="mt-1">
-								<input defaultValue={this.props.ipAddress} onChange={e => this.props.setIpAddress(e.target.value)} type="text" name="ipAddress" id="ipAddress" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-l-md"/>
+							<label for="ipAddress" className="block text-sm font-medium text-gray-700">IP Address</label>
+							<div className="mt-1">
+								<input defaultValue={this.props.ipAddress} onChange={e => this.props.setIpAddress(e.target.value)} type="text" name="ipAddress" id="ipAddress" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-l-md"/>
 							</div>
 						</div>
 						<div className="mr-2 w-32">
-							<label for="port" class="block text-sm font-medium text-gray-700">Port</label>
-							<div class="mt-1">
-								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value, 10))} type="text" name="port" id="port" class="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
+							<label for="port" className="block text-sm font-medium text-gray-700">Port</label>
+							<div className="mt-1">
+								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value, 10))} type="text" name="port" id="port" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
 							</div>
 						</div>
 						<div>
-							<label for="port" class="block text-sm font-medium text-gray-700"> &nbsp; </label>
-							<div class="mt-1">
+							<label for="port" className="block text-sm font-medium text-gray-700"> &nbsp; </label>
+							<div className="mt-1">
 								<button onClick={this.startServer}
-								        type="button" class={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-green-500 hover:bg-green-600 ${this.props.srvStatus === true && 'opacity-80'}`}>
+								        type="button" className={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-green-500 hover:bg-green-600 ${this.props.srvStatus === true && 'opacity-80'}`}>
 									Start Server
 								</button>
 							</div>
@@ -49,7 +49,7 @@ class Settings extends Component {
 					<div className="">
 						<h3 className="font-semibold mb-2">Framework configuration</h3>
 						<select onChange={e => this.props.setFramework(e.target.value)} defaultValue={this.props.framework}
-						        class="mt-1 block w-64 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 focus:ring-opacity-40 sm:text-sm rounded-md">
+						        className="mt-1 block w-64 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 focus:ring-opacity-40 sm:text-sm rounded-md">
 							<option>Laravel</option>
 							<option>Symfony</option>
 							<option>WordPress</option>
@@ -60,13 +60,13 @@ class Settings extends Component {
 						</select>
 					</div>
 					
-					<p class="py-2 text-sm text-gray-600 border-b-2 border-dashed">
+					<p className="py-2 text-sm text-gray-600 border-b-2 border-dashed">
 						If you are using Vagrant/Homestead, use <span className="font-semibold font-mono">"10.0.2.2"</span> as your SMTP-Host.<br/>
 						For Docker, use <span className="font-semibold font-mono">"host.docker.internal"</span> as your SMTP-Host.
 					</p>
 					
 					{this.props.framework === 'Laravel' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							Use these configuration values in your Laravel applications .env file:
 						</p>
 						
@@ -82,7 +82,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'Symfony' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							Symfony uses SwiftMailerBundle to send emails. You can find more information on how to send email on. <br/>
 							To get started you need to modify .env file in your project directory and set MAILER_URL value:
 						</p>
@@ -95,7 +95,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'WordPress' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							You can configure your WordPress site to send mails to Mail-Dev by using :
 						</p>
 						
@@ -105,7 +105,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'Yii Framework' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							You can find documentation for sending emails using SMTP in Yii Framework here. <br/>
 							In your config file add:
 						</p>
@@ -117,7 +117,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'Nodemailer' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							Nodemailer is an easy to use module to send e-mails with Node.JS:<br/>
 						</p>
 						
@@ -127,7 +127,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'Ruby on Rails' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							In config/environments/*.rb specify ActionMailer defaults for your development or staging servers:
 						</p>
 						
@@ -138,7 +138,7 @@ class Settings extends Component {
 					</div>}
 					
 					{this.props.framework === 'Ruby (net/smtp)' && <div className="whitespace-pre-wrap text-sm text-gray-600">
-						<p class="py-2 text-sm text-gray-600">
+						<p className="py-2 text-sm text-gray-600">
 							Sending email using net/smtp from Ruby stdlib:
 						</p>
 						

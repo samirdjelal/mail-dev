@@ -30,7 +30,7 @@ class Mailbox extends Component {
 				<div className="text-sm text-gray-500 mb-2">Send emails using this smtp server:</div>
 				<div className="flex items-center mb-2">
 					<div className="font-mono text-sm block bg-gray-900 shadow-inner rounded-md px-2 py-1 text-gray-300">{this.props.ipAddress}:{this.props.port}</div>
-					<div class={`underline ml-2 cursor-pointer font-semibold hover:opacity-80 text-xs ${this.props.srvStatus === true && 'hidden'}`}
+					<div className={`underline ml-2 cursor-pointer font-semibold hover:opacity-80 text-xs ${this.props.srvStatus === true && 'hidden'}`}
 					     onClick={this.startServer}>Start Server
 					</div>
 					{this.props.srvStatus === true && <div>
@@ -47,7 +47,7 @@ class Mailbox extends Component {
 					<div className="py-2 px-2 items-center flex justify-end border-b border-gray-300 border-opacity-70 ">
 						<button onClick={() => this.props.clearMails()} className="block ml-auto bg-red-400 text-white hover:bg-red-500 hover:text-white rounded-md px-2.5 py-1.5 uppercase text-xs font-semibold">Delete all mails</button>
 					</div>
-					{this.props.mails.reverse().map(mail => {
+					{this.props.mails.map(mail => {
 						return <Fragment key={mail.key}>
 							<div className={`border-b border-gray-300 border-opacity-70 flex items-center py-2 hover:bg-gray-300 hover:bg-opacity-40 cursor-pointer select-none px-2 ${mail.key === this.props.mailIndex ? 'bg-gray-300 bg-opacity-50' : ''}`}
 							     onClick={() => this.selectMail(mail)}>
@@ -69,10 +69,17 @@ class Mailbox extends Component {
 				</div>
 				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-2 pb-3 scroll overflow-y-auto">
 					<div className="text-xl py-2 text-gray-800">{this.props.mail.subject || 'Subject'}</div>
-					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">
+					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600 mb-2">
 						From : {this.props.mail.from || 'from'} <br/>
 						To : {this.props.mail.to || 'to'} <br/>
 						Message-ID : {this.props.mail.message_id || 'message_id'} <br/>
+					</div>
+					<div className="border rounded-md bg-white whitespace-pre-wrap p-2 text-sm font-sans text-gray-600">
+						{this.props.mail.attachments.map(attachment => {
+							return <div>
+								<a href={`data:${attachment[1]};base64,${attachment[2]}`} download={attachment[0]}>{attachment[0]}</a>
+							</div>
+						})}
 					</div>
 					<div className="flex items-center py-2">
 						{(this.props.mail.html === "" ? ["Text", "Raw", "Headers", "Spam Reports"] : ["HTML", "HTML-Source", "Text", "Raw", "Headers", "Spam Reports"]).map(item => {
