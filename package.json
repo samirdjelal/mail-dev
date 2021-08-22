@@ -5,7 +5,9 @@
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.6.0",
 		"@tauri-apps/api": "^1.0.0-beta.6",
+		"customize-cra": "^1.0.0",
 		"react": "^17.0.2",
+		"react-app-rewired": "^2.1.8",
 		"react-dom": "^17.0.2",
 		"react-redux": "^7.2.4",
 		"react-router": "^5.2.0",
@@ -13,10 +15,10 @@
 		"react-scripts": "^4.0.3"
 	},
 	"scripts": {
-		"dev": "react-scripts start",
-		"build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject",
+		"dev": "react-app-rewired start",
+		"build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
+		"test": "react-app-rewired test",
+		"eject": "react-app-rewired eject",
 		"tauri": "tauri",
 		"tailwind:dev": "npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css",
 		"tailwind:prod": "cross-env NODE_ENV=production npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css"
@@ -31,6 +33,7 @@
 		"defaults"
 	],
 	"devDependencies": {
+		"@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
 		"@tailwindcss/aspect-ratio": "^0.2.1",
 		"@tailwindcss/forms": "^0.3.3",
 		"@tailwindcss/typography": "^0.4.1",
