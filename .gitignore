@@ -2,6 +2,7 @@
 /.idea
 /public/tailwind.css
 package-lock.json
+yarn.lock
 # dependencies
 /node_modules
 /.pnp
