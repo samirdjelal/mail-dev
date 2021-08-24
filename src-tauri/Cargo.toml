@@ -19,8 +19,8 @@ mailin-embedded = { version = "0.6.1", features = [ "rtls" ] }
 mailparse = "0.13.5"
 
   [dependencies.tauri]
-  version = "1.0.0-beta.7"
-  features = ["api-all"]
+  version = "1.0.0-beta.8"
+  features = [ "api-all" ]
 
 [features]
 default = [ "custom-protocol" ]

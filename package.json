@@ -4,7 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@reduxjs/toolkit": "^1.6.0",
-		"@tauri-apps/api": "^1.0.0-beta.6",
+		"@tauri-apps/api": "^1.0.0-beta.8",
 		"customize-cra": "^1.0.0",
 		"react": "^17.0.2",
 		"react-app-rewired": "^2.1.8",
