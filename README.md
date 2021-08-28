@@ -13,7 +13,7 @@ Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/e
 ## Todo:
 - [x] Custom SMTP server port
 - [x] Frameworks configuration snippets
-- [ ] Attachment support
+- [x] Attachment support
 - [ ] Forward emails
 
 <img src="screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>

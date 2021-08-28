@@ -20,7 +20,7 @@ mailparse = "0.13.5"
 
   [dependencies.tauri]
   version = "1.0.0-beta.8"
-  features = [ "api-all" ]
+  features = ["api-all"]
 
 [features]
 default = [ "custom-protocol" ]
