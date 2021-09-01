@@ -15,6 +15,7 @@ Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/e
 - [x] Frameworks configuration snippets
 - [x] Attachment support
 - [ ] Forward emails
+- [ ] Auto update
 
 <img src="screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
 <br/>
