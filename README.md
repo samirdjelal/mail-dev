@@ -23,6 +23,11 @@ Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/e
 <br/>
 <img src="screenshots/setting.png" alt="Mail-Dev SETTING"/>
 
+## Requirement:
+- Tauri CLI
+- NodeJS (npm/yarn)
+
+
 ### Dev
 ```text
 npm run tailwind:dev
