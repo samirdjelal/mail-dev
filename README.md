@@ -32,11 +32,13 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 ### Dev
 ```text
 npm install
+npm run tailwind:dev
 npm run tauri dev
 ```
 
 ### Build
 ```text
 npm install
+npm run tailwind:dev
 npm run tauri build
 ```

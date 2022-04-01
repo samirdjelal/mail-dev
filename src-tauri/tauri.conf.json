@@ -7,7 +7,7 @@
 		"distDir": "../build",
 		"devPath": "http://localhost:3000",
 		"beforeDevCommand": "npm run dev",
-		"beforeBuildCommand": "npm run tailwind:prod && npm run build"
+		"beforeBuildCommand": "npm run build"
 	},
 	"tauri": {
 		"bundle": {

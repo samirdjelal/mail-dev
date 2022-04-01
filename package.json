@@ -21,8 +21,8 @@
 		"test": "react-app-rewired test",
 		"eject": "react-app-rewired eject",
 		"tauri": "tauri",
-		"tailwind:dev": "npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css",
-		"tailwind:prod": "cross-env NODE_ENV=production npx tailwindcss-cli@latest build -i ./src/styles/tailwind.base -o ./public/tailwind.css"
+		"tailwind:dev": "npx tailwindcss -i ./src/styles/tailwind.base -o ./src/styles/tailwind.css --watch",
+		"tailwind:prod": "cross-env NODE_ENV=production npx tailwindcss build -i ./src/styles/tailwind.base -o ./src/styles/tailwind.css"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -35,12 +35,13 @@
 	],
 	"devDependencies": {
 		"@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
-		"@tailwindcss/aspect-ratio": "^0.2.1",
-		"@tailwindcss/forms": "^0.3.3",
-		"@tailwindcss/typography": "^0.4.1",
-		"autoprefixer": "^9.8.6",
+		"@tailwindcss/aspect-ratio": "^0.4.0",
+		"@tailwindcss/forms": "^0.5.0",
+		"@tailwindcss/line-clamp": "^0.3.1",
+		"@tailwindcss/typography": "^0.5.2",
+		"autoprefixer": "^10.4.4",
 		"cross-env": "^7.0.3",
-		"postcss": "^7.0.36",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.4"
+		"postcss": "^8.4.12",
+		"tailwindcss": "^3.0.23"
 	}
 }

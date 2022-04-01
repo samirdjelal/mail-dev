@@ -1,22 +1,20 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-	darkMode: false, // or 'media' or 'class'
+	content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 	theme: {
 		extend: {
 			colors: {
 				transparent: 'transparent',
 				current: 'currentColor',
-				gray: colors.warmGray,
+				gray: colors.stone,
 				red: colors.red,
 				blue: colors.sky,
+				green: colors.emerald,
 				yellow: colors.amber,
+				purple: colors.violet,
 			}
 		},
-	},
-	variants: {
-		extend: {},
 	},
 	plugins: [
 		require('@tailwindcss/aspect-ratio'),

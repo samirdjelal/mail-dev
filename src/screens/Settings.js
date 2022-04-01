@@ -87,7 +87,7 @@ class Settings extends Component {
 						<div className="mr-3 w-44">
 							<label htmlFor="forwardEmailPassword" className="block text-sm font-medium text-gray-700">Password</label>
 							<div className="mt-1">
-								<input onFocus={e => e.target.setAttribute('type', 'text')} onBlur={e => e.target.setAttribute('type', 'password')} onChange={e => this.props.setForwardEmailPassword(e.target.value)} defaultValue={this.props.forwardEmailPassword} autoComplete={false} autoCorrect={false} name="forwardEmailPassword" id="forwardEmailPassword" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+								<input type="text" onFocus={e => e.target.setAttribute('type', 'text')} onBlur={e => e.target.setAttribute('type', 'password')} onChange={e => this.props.setForwardEmailPassword(e.target.value)} defaultValue={this.props.forwardEmailPassword} autoComplete={false} autoCorrect={false} name="forwardEmailPassword" id="forwardEmailPassword" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						

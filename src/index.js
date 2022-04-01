@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/main.css';
+import './styles/tailwind.css';
 import {Provider} from 'react-redux';
 import App from './App';
 import store from './store/store';
