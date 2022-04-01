@@ -1,10 +1,12 @@
 # Mail-Dev
 
-<img src="src-tauri/icons/Square71x71Logo.png" alt="Mail-Dev" align="left"/>
+<img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/src-tauri/icons/Square107x107Logo.png" alt="Mail-Dev" align="left"/>
 
-## Local SMTP Server For Email Testing/Debugging
+### Local SMTP Server For Email Testing/Debugging
 
 Built on top of [React](https://reactjs.org/) and [Tauri](https://tauri.studio/en).
+
+---
 
 Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 
@@ -14,32 +16,27 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 - [x] Custom SMTP server port
 - [x] Frameworks configuration snippets
 - [x] Attachment support
-- [ ] Forward emails
+- [ ] Forward emails [WIP]
 - [ ] Auto update
 
-<img src="screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
+<img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
 <br/>
-<img src="screenshots/html-mail.png" alt="Mail-Dev HTML Mail"/>
+<img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/screenshots/html-mail.png" alt="Mail-Dev HTML Mail"/>
 <br/>
-<img src="screenshots/setting.png" alt="Mail-Dev SETTING"/>
+<img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/screenshots/setting.png" alt="Mail-Dev SETTING"/>
 
 ## Requirement:
 - Tauri CLI
 - NodeJS (npm/yarn)
 
-
 ### Dev
 ```text
-npm run install
-npm run tailwind:dev
-npm run dev
+npm install
 npm run tauri dev
 ```
 
 ### Build
 ```text
-npm run install
-npm run tailwind:prod
-npm run build
+npm install
 npm run tauri build
 ```

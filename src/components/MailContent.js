@@ -18,7 +18,7 @@ class MailContent extends Component {
 		if (this.props.tab === "HTML")
 			return (
 				<div className="h-full w-full scroll overflow-y-auto scroll">
-					<iframe id="previewIframe" title="Letter preview" sandbox
+					<iframe id="previewIframe" title="Letter preview" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
 					        src={this.mailToBlob(this.props.mail.html)}
 					        scrolling="no" frameBorder="0" className="w-full h-full scroll"></iframe>
 				</div>);

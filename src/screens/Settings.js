@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
+import {setForwardEmailEnc, setForwardEmailHost, setForwardEmailPassword, setForwardEmailPort, setForwardEmailUsername, setForwardEnabled, setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
 import {invoke} from "@tauri-apps/api";
 
 class Settings extends Component {
@@ -12,27 +12,27 @@ class Settings extends Component {
 	
 	render() {
 		return (
-			<div className="h-full w-full text-lg text-gray-700 py-3 px-4 scroll overflow-y-auto">
+			<div className="h-full w-full text-lg text-gray-700 py-4 px-6 scroll overflow-y-auto">
 				<h3 className="mb-2">Settings</h3>
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-2">
 					<h3 className="font-semibold mb-2">SMTP configuration</h3>
 					<div className={`relative flex pb-2 ${this.props.srvStatus === true ? 'opacity-60' : ''}`}>
 						{this.props.srvStatus === true && <div className="absolute w-full h-full bg-white opacity-10 z-40"></div>}
-						<div className="mr-1 w-64">
-							<label for="ipAddress" className="block text-sm font-medium text-gray-700">IP Address</label>
+						<div className="mr-3 w-64">
+							<label htmlFor="ipAddress" className="block text-sm font-medium text-gray-700">IP Address</label>
 							<div className="mt-1">
-								<input defaultValue={this.props.ipAddress} onChange={e => this.props.setIpAddress(e.target.value)} type="text" name="ipAddress" id="ipAddress" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-l-md"/>
+								<input defaultValue={this.props.ipAddress} onChange={e => this.props.setIpAddress(e.target.value)} type="text" name="ipAddress" id="ipAddress" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
-						<div className="mr-2 w-32">
-							<label for="port" className="block text-sm font-medium text-gray-700">Port</label>
+						<div className="mr-3 w-32">
+							<label htmlFor="port" className="block text-sm font-medium text-gray-700">Port</label>
 							<div className="mt-1">
-								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value, 10))} type="text" name="port" id="port" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-r-md"/>
+								<input defaultValue={this.props.port} onChange={e => this.props.setPort(parseInt(e.target.value, 10))} type="text" name="port" id="port" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						<div>
-							<label for="port" className="block text-sm font-medium text-gray-700"> &nbsp; </label>
+							<label htmlFor="port" className="block text-sm font-medium text-gray-700"> &nbsp; </label>
 							<div className="mt-1">
 								<button onClick={this.startServer}
 								        type="button" className={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 bg-green-500 hover:bg-green-600 ${this.props.srvStatus === true && 'opacity-80'}`}>
@@ -41,6 +41,66 @@ class Settings extends Component {
 							</div>
 						</div>
 					
+					
+					</div>
+				</div>
+				
+				<div className="bg-white rounded-md px-4 py-2 border mb-2">
+					<h3 className="font-semibold mb-2">Forward emails</h3>
+					<div className="relative flex pb-2">
+						<div className="mr-3 w-64">
+							<label htmlFor="forwardEmailHost" className="block text-sm font-medium text-gray-700">Host</label>
+							<div className="mt-1">
+								<input type="text" onChange={e => this.props.setForwardEmailHost(e.target.value)} defaultValue={this.props.forwardEmailHost} autoComplete="none" autoCorrect="none" name="forwardEmailHost" id="forwardEmailHost" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+							</div>
+						</div>
+						
+						<div className="mr-3 w-32">
+							<label htmlFor="forwardEmailPort" className="block text-sm font-medium text-gray-700">Port</label>
+							<div className="mt-1">
+								<input type="text" onChange={e => this.props.setForwardEmailPort(e.target.value)} defaultValue={this.props.forwardEmailPort} autoComplete="none" autoCorrect="none" name="forwardEmailPort" id="forwardEmailPort" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+							</div>
+						</div>
+						
+						<div className="mr-3 w-32">
+							<label htmlFor="forwardEmailEnc" className="block text-sm font-medium text-gray-700">Encryption</label>
+							<div className="mt-1">
+								<select onChange={e => this.props.setForwardEmailEnc(e.target.value)} defaultValue={this.props.forwardEmailEnc} name="forwardEmailEnc" id="forwardEmailEnc" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md">
+									<option value="">None</option>
+									<option value="ssl">SSL</option>
+									<option value="tls">TLS</option>
+								</select>
+							</div>
+						
+						</div>
+					</div>
+					
+					<div className="relative flex pb-2">
+						
+						<div className="mr-3 w-44">
+							<label htmlFor="forwardEmailUsername" className="block text-sm font-medium text-gray-700">Username</label>
+							<div className="mt-1">
+								<input type="text" onChange={e => this.props.setForwardEmailUsername(e.target.value)} defaultValue={this.props.forwardEmailUsername} autoComplete={false} autoCorrect={false} name="forwardEmailUsername" id="forwardEmailUsername" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+							</div>
+						</div>
+						
+						<div className="mr-3 w-44">
+							<label htmlFor="forwardEmailPassword" className="block text-sm font-medium text-gray-700">Password</label>
+							<div className="mt-1">
+								<input onFocus={e => e.target.setAttribute('type', 'text')} onBlur={e => e.target.setAttribute('type', 'password')} onChange={e => this.props.setForwardEmailPassword(e.target.value)} defaultValue={this.props.forwardEmailPassword} autoComplete={false} autoCorrect={false} name="forwardEmailPassword" id="forwardEmailPassword" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+							</div>
+						</div>
+						
+						<div>
+							<label htmlFor="save" className="block text-sm font-medium text-gray-700"> &nbsp; </label>
+							<div className="mt-1">
+								<button
+									onClick={() => this.props.setForwardEnabled(!this.props.forwardEnabled)}
+									type="button" className={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${this.props.forwardEnabled === true ? 'bg-red-500 hover:bg-red-600' : ' bg-green-500 hover:bg-green-600'}`}>
+									{this.props.forwardEnabled === true ? 'Disable Forwarding' : 'Enable Forwarding'}
+								</button>
+							</div>
+						</div>
 					
 					</div>
 				</div>
@@ -168,11 +228,25 @@ export default withRouter(connect(
 		framework: state.setting.framework,
 		ipAddress: state.setting.ipAddress,
 		port: state.setting.port,
+		
+		forwardEmailHost: state.setting.forwardEmailHost,
+		forwardEmailPort: state.setting.forwardEmailPort,
+		forwardEmailEnc: state.setting.forwardEmailEnc,
+		forwardEmailUsername: state.setting.forwardEmailUsername,
+		forwardEmailPassword: state.setting.forwardEmailPassword,
+		forwardEnabled: state.setting.forwardEnabled,
+		
 	}),
 	{
 		setSrvStatus,
 		setIpAddress,
 		setPort,
 		setFramework,
+		setForwardEmailHost,
+		setForwardEmailPort,
+		setForwardEmailEnc,
+		setForwardEmailUsername,
+		setForwardEmailPassword,
+		setForwardEnabled,
 	}
 )(Settings));

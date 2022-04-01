@@ -6,8 +6,8 @@
 	"build": {
 		"distDir": "../build",
 		"devPath": "http://localhost:3000",
-		"beforeDevCommand": "",
-		"beforeBuildCommand": ""
+		"beforeDevCommand": "npm run dev",
+		"beforeBuildCommand": "npm run tailwind:prod && npm run build"
 	},
 	"tauri": {
 		"bundle": {
@@ -49,20 +49,28 @@
 			"active": false
 		},
 		"allowlist": {
-			"all": true
+			"all": true,
+			"http": {
+				"all": true,
+				"request": true,
+				"scope": [
+					"https://spamcheck.postmarkapp.com/*"
+				]
+			}
 		},
 		"windows": [
 			{
 				"title": "Mail Dev",
 				"width": 1100,
 				"height": 700,
-				"minWidth": 900,
+				"minWidth": 950,
 				"minHeight": 600,
 				"resizable": true,
-				"fullscreen": false
-
+				"fullscreen": false,
+				"center": true
 			}
 		],
+		"macOSPrivateApi": true,
 		"security": {
 			"csp": "default-src blob: data: filesystem: ws: wss: http: https: tauri: 'unsafe-eval' 'unsafe-inline' 'self' img-src: 'self'"
 		}
