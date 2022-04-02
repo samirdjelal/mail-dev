@@ -823,32 +823,16 @@ select {
   width: 8rem;
 }
 
-.w-28 {
-  width: 7rem;
-}
-
-.w-56 {
-  width: 14rem;
-}
-
-.w-24 {
-  width: 6rem;
+.w-48 {
+  width: 12rem;
 }
 
 .w-40 {
   width: 10rem;
 }
 
-.w-52 {
-  width: 13rem;
-}
-
 .w-36 {
   width: 9rem;
-}
-
-.w-48 {
-  width: 12rem;
 }
 
 .flex-shrink-0 {
@@ -1385,38 +1369,6 @@ select {
 
   .lg\:w-60 {
     width: 15rem;
-  }
-
-  .lg\:w-48 {
-    width: 12rem;
-  }
-
-  .lg\:w-20 {
-    width: 5rem;
-  }
-
-  .lg\:w-40 {
-    width: 10rem;
-  }
-
-  .lg\:w-36 {
-    width: 9rem;
-  }
-
-  .lg\:w-64 {
-    width: 16rem;
-  }
-
-  .lg\:w-32 {
-    width: 8rem;
-  }
-
-  .lg\:w-28 {
-    width: 7rem;
-  }
-
-  .lg\:w-56 {
-    width: 14rem;
   }
 }
 
