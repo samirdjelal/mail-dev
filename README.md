@@ -16,7 +16,7 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 - [x] Custom SMTP server port
 - [x] Frameworks configuration snippets
 - [x] Attachment support
-- [ ] Forward emails [WIP]
+- [x] Forward emails
 - [ ] Notification
 - [ ] Auto update
 - [ ] Persistent configuration
