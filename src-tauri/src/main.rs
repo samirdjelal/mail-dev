@@ -5,8 +5,10 @@ windows_subsystem = "windows"
 
 mod smtp;
 mod window;
+mod forward;
 
 use smtp::start_smtp_server;
+use forward::forward_mail;
 use tauri::Manager;
 
 fn main() {
@@ -18,7 +20,7 @@ fn main() {
 			// ))));
 			Ok(())
 		})
-		.invoke_handler(tauri::generate_handler![start_smtp_server])
+		.invoke_handler(tauri::generate_handler![start_smtp_server, forward_mail])
 		.run(tauri::generate_context!())
 		.expect("error while running tauri application");
 }

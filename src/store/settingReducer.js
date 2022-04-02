@@ -11,7 +11,6 @@ const settingState = createSlice({
 		
 		forwardEmailHost: "smtp.gmail.com",
 		forwardEmailPort: "587",
-		forwardEmailEnc: "",
 		forwardEmailUsername: "",
 		forwardEmailPassword: "",
 		forwardEnabled: false,
@@ -26,7 +25,6 @@ const settingState = createSlice({
 		
 		setForwardEmailHost: (state, action) => ({...state, forwardEmailHost: action.payload}),
 		setForwardEmailPort: (state, action) => ({...state, forwardEmailPort: action.payload}),
-		setForwardEmailEnc: (state, action) => ({...state, forwardEmailEnc: action.payload}),
 		setForwardEmailUsername: (state, action) => ({...state, forwardEmailUsername: action.payload}),
 		setForwardEmailPassword: (state, action) => ({...state, forwardEmailPassword: action.payload}),
 		setForwardEnabled: (state, action) => ({...state, forwardEnabled: action.payload}),
@@ -41,7 +39,6 @@ export const {
 	setPort,
 	setForwardEmailHost,
 	setForwardEmailPort,
-	setForwardEmailEnc,
 	setForwardEmailUsername,
 	setForwardEmailPassword,
 	setForwardEnabled,

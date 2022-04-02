@@ -1,12 +1,12 @@
 [package]
 name = "mail-dev"
-version = "0.4.0"
+version = "0.5.0"
 description = "Mail Dev"
-authors = [ "Samir Djelal" ]
+authors = ["Samir Djelal <ssdjelal@gmail.com>"]
 license = "MIT"
 repository = "https://github.com/samirdjelal/mail-dev"
 default-run = "mail-dev"
-edition = "2018"
+edition = "2021"
 build = "src/build.rs"
 
 [build-dependencies]
@@ -14,14 +14,15 @@ tauri-build = { version = "1.0.0-beta.2", features = [] }
 
 [dependencies]
 serde_json = "1.0"
-serde = { version = "1.0", features = [ "derive" ] }
-mailin-embedded = { version = "0.6.1", features = [ "rtls" ] }
+serde = { version = "1.0", features = ["derive"] }
+mailin-embedded = { version = "0.6.1", features = ["rtls"] }
 mailparse = "0.13.5"
+lettre = "0.10.0-rc.5"
 
-  [dependencies.tauri]
-  version = "1.0.0-rc.6"
-  features = ["api-all", "macos-private-api"]
+[dependencies.tauri]
+version = "1.0.0-rc.6"
+features = ["api-all", "macos-private-api"]
 
 [features]
-default = [ "custom-protocol" ]
-custom-protocol = [ "tauri/custom-protocol" ]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

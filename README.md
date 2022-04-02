@@ -17,7 +17,9 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 - [x] Frameworks configuration snippets
 - [x] Attachment support
 - [ ] Forward emails [WIP]
+- [ ] Notification
 - [ ] Auto update
+- [ ] Persistent configuration
 
 <img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
 <br/>

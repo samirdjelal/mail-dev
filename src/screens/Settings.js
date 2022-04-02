@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {setForwardEmailEnc, setForwardEmailHost, setForwardEmailPassword, setForwardEmailPort, setForwardEmailUsername, setForwardEnabled, setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
+import {setForwardEmailHost, setForwardEmailPassword, setForwardEmailPort, setForwardEmailUsername, setForwardEnabled, setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
 import {invoke} from "@tauri-apps/api";
 
 class Settings extends Component {
@@ -48,46 +48,33 @@ class Settings extends Component {
 				<div className="bg-white rounded-md px-4 py-2 border mb-2">
 					<h3 className="font-semibold mb-2">Forward emails</h3>
 					<div className="relative flex pb-2">
-						<div className="mr-3 w-64">
+						<div className="mr-3 w-48 xl:w-64">
 							<label htmlFor="forwardEmailHost" className="block text-sm font-medium text-gray-700">Host</label>
 							<div className="mt-1">
 								<input type="text" onChange={e => this.props.setForwardEmailHost(e.target.value)} defaultValue={this.props.forwardEmailHost} autoComplete="none" autoCorrect="none" name="forwardEmailHost" id="forwardEmailHost" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						
-						<div className="mr-3 w-32">
+						<div className="mr-3 w-20 xl:w-28">
 							<label htmlFor="forwardEmailPort" className="block text-sm font-medium text-gray-700">Port</label>
 							<div className="mt-1">
 								<input type="text" onChange={e => this.props.setForwardEmailPort(e.target.value)} defaultValue={this.props.forwardEmailPort} autoComplete="none" autoCorrect="none" name="forwardEmailPort" id="forwardEmailPort" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						
-						<div className="mr-3 w-32">
-							<label htmlFor="forwardEmailEnc" className="block text-sm font-medium text-gray-700">Encryption</label>
-							<div className="mt-1">
-								<select onChange={e => this.props.setForwardEmailEnc(e.target.value)} defaultValue={this.props.forwardEmailEnc} name="forwardEmailEnc" id="forwardEmailEnc" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md">
-									<option value="">None</option>
-									<option value="ssl">SSL</option>
-									<option value="tls">TLS</option>
-								</select>
-							</div>
 						
-						</div>
-					</div>
-					
-					<div className="relative flex pb-2">
-						
-						<div className="mr-3 w-44">
+						<div className="mr-3 w-40 xl:w-56">
 							<label htmlFor="forwardEmailUsername" className="block text-sm font-medium text-gray-700">Username</label>
 							<div className="mt-1">
-								<input type="text" onChange={e => this.props.setForwardEmailUsername(e.target.value)} defaultValue={this.props.forwardEmailUsername} autoComplete={false} autoCorrect={false} name="forwardEmailUsername" id="forwardEmailUsername" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+								<input type="text" onChange={e => this.props.setForwardEmailUsername(e.target.value)} defaultValue={this.props.forwardEmailUsername} autoComplete="none" autoCorrect="none" name="forwardEmailUsername" id="forwardEmailUsername" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						
-						<div className="mr-3 w-44">
+						<div className="mr-3 w-36 xl:w-56">
 							<label htmlFor="forwardEmailPassword" className="block text-sm font-medium text-gray-700">Password</label>
 							<div className="mt-1">
-								<input type="text" onFocus={e => e.target.setAttribute('type', 'text')} onBlur={e => e.target.setAttribute('type', 'password')} onChange={e => this.props.setForwardEmailPassword(e.target.value)} defaultValue={this.props.forwardEmailPassword} autoComplete={false} autoCorrect={false} name="forwardEmailPassword" id="forwardEmailPassword" className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
+								<input type="password" onFocus={e => e.target.setAttribute('type', 'text')} onBlur={e => e.target.setAttribute('type', 'password')} onChange={e => this.props.setForwardEmailPassword(e.target.value)} defaultValue={this.props.forwardEmailPassword} autoComplete="none" autoCorrect="none" name="forwardEmailPassword" id="forwardEmailPassword"
+								       className="shadow-sm focus:ring-gray-500 focus:border-gray-500 block w-full sm:text-sm border-gray-300 focus:ring-opacity-40 focus:ring-2 rounded-md"/>
 							</div>
 						</div>
 						
@@ -103,6 +90,7 @@ class Settings extends Component {
 						</div>
 					
 					</div>
+				
 				</div>
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-4">
@@ -231,7 +219,6 @@ export default withRouter(connect(
 		
 		forwardEmailHost: state.setting.forwardEmailHost,
 		forwardEmailPort: state.setting.forwardEmailPort,
-		forwardEmailEnc: state.setting.forwardEmailEnc,
 		forwardEmailUsername: state.setting.forwardEmailUsername,
 		forwardEmailPassword: state.setting.forwardEmailPassword,
 		forwardEnabled: state.setting.forwardEnabled,
@@ -244,7 +231,6 @@ export default withRouter(connect(
 		setFramework,
 		setForwardEmailHost,
 		setForwardEmailPort,
-		setForwardEmailEnc,
 		setForwardEmailUsername,
 		setForwardEmailPassword,
 		setForwardEnabled,
