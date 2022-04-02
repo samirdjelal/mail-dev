@@ -29,7 +29,7 @@ class MailContent extends Component {
 		if (this.props.tab === "Spam Reports") {
 			if (this.props.mail.spam_score === "") return (<div className="p-2 text-sm font-sans text-gray-600">Loading...</div>)
 			return (<div className="p-2 text-sm font-sans text-gray-600">
-				<h1 className="dark:text-white font-medium mb-1">Your SpamAssassin score is {this.props.mail.spam_score}! </h1>
+				<h1 className="font-medium mb-1">Your SpamAssassin score is {this.props.mail.spam_score}! </h1>
 				<p className="mb-3 text-sm mb-1 text-coolGray-700 dark:text-warmGray-300">The lower your score, the more likely your email is going to be received in your subscribers' inboxes.</p>
 				<div className="h-100 overflow-y-auto scroll border-t-2 border-dashed border-coolGray-300 dark:border-warmGray-700 pt-2">
 					<table className="w-full border-collapse text-coolGray-700 dark:text-warmGray-200">
