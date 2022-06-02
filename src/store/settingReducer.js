@@ -4,6 +4,7 @@ const settingState = createSlice({
 	name: 'setting',
 	initialState: {
 		srvStatus: false,
+		srvErrorMessage: "",
 		framework: "Laravel",
 		ipAddress: "127.0.0.1",
 		port: 2525,
@@ -15,9 +16,12 @@ const settingState = createSlice({
 		forwardEmailPassword: "",
 		forwardEnabled: false,
 		
+		useNotification: true,
+		
 	},
 	reducers: {
 		setSrvStatus: (state, action) => ({...state, srvStatus: action.payload}),
+		setSrvResponseMessage: (state, action) => ({...state, srvResponseMessage: action.payload}),
 		setFramework: (state, action) => ({...state, framework: action.payload}),
 		setIpAddress: (state, action) => ({...state, ipAddress: action.payload}),
 		setPort: (state, action) => ({...state, port: action.payload}),
@@ -29,11 +33,14 @@ const settingState = createSlice({
 		setForwardEmailPassword: (state, action) => ({...state, forwardEmailPassword: action.payload}),
 		setForwardEnabled: (state, action) => ({...state, forwardEnabled: action.payload}),
 		
+		setUseNotification: (state, action) => ({...state, useNotification: action.payload}),
+		
 	}
 })
 
 export const {
 	setSrvStatus,
+	setSrvResponseMessage,
 	setFramework,
 	setIpAddress,
 	setPort,
@@ -42,6 +49,7 @@ export const {
 	setForwardEmailUsername,
 	setForwardEmailPassword,
 	setForwardEnabled,
+	setUseNotification,
 } = settingState.actions;
 
 

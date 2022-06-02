@@ -17,7 +17,7 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 - [x] Frameworks configuration snippets
 - [x] Attachment support
 - [x] Forward emails
-- [ ] Notification
+- [x] Notification
 - [ ] Auto update
 - [ ] Persistent configuration
 

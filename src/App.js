@@ -7,7 +7,7 @@ import Mailbox from "./screens/Mailbox";
 import Settings from "./screens/Settings";
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {addMail} from "./store/mailboxReducer";
-import {invoke} from "@tauri-apps/api";
+import {invoke, notification} from "@tauri-apps/api";
 
 class App extends Component {
 	componentDidMount() {
@@ -25,7 +25,27 @@ class App extends Component {
 					email_subject: res.payload.subject
 				}).then(r => console.log(r))
 			}
+			
+			if (this.props.useNotification === true) {
+				if (!notification.isPermissionGranted()) {
+					notification.requestPermission().then(response => {
+						if (response === 'granted') {
+							this.notify(res.payload.subject);
+						}
+					});
+				} else {
+					this.notify(res.payload.subject);
+				}
+			}
+			
 		}).then().catch()
+	}
+	
+	notify(body = '') {
+		notification.sendNotification({
+			title: "Mail-Dev: Mail Received",
+			body,
+		})
 	}
 	
 	render() {
@@ -51,6 +71,7 @@ export default withRouter(connect(
 		forwardEmailUsername: state.setting.forwardEmailUsername,
 		forwardEmailPassword: state.setting.forwardEmailPassword,
 		forwardEnabled: state.setting.forwardEnabled,
+		useNotification: state.setting.useNotification,
 	}),
 	{
 		addMail,

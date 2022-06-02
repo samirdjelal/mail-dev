@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router";
-import {setForwardEmailHost, setForwardEmailPassword, setForwardEmailPort, setForwardEmailUsername, setForwardEnabled, setFramework, setIpAddress, setPort, setSrvStatus} from "../store/settingReducer";
-import {invoke} from "@tauri-apps/api";
+import {setForwardEmailHost, setForwardEmailPassword, setForwardEmailPort, setForwardEmailUsername, setForwardEnabled, setFramework, setIpAddress, setPort, setSrvResponseMessage, setSrvStatus, setUseNotification} from "../store/settingReducer";
+import {invoke, notification} from "@tauri-apps/api";
 
 class Settings extends Component {
 	constructor(props) {
 		super(props);
 		this.startServer = this.startServer.bind(this);
 	}
+	
+	
+	componentDidMount() {
+		this.props.setSrvResponseMessage("")
+	}
+	
 	
 	render() {
 		return (
@@ -43,6 +49,7 @@ class Settings extends Component {
 					
 					
 					</div>
+					<div className="text-sm font-semibold">{this.props.srvResponseMessage}</div>
 				</div>
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-2">
@@ -91,6 +98,22 @@ class Settings extends Component {
 					
 					</div>
 				
+				</div>
+				
+				<div className="bg-white rounded-md px-4 py-2 border mb-2">
+					<h3 className="font-semibold mb-2">Show Notifications</h3>
+					<div className="relative flex pb-2">
+						<div>
+							<label htmlFor="save" className="block text-sm font-medium text-gray-700"> Show notifications when an email is received </label>
+							<div className="mt-1">
+								<button
+									onClick={() => this.props.setUseNotification(!this.props.useNotification)}
+									type="button" className={`inline-flex items-center px-3 py-2.5 border border-transparent text-sm leading-4 font-medium rounded-md shadow-sm text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 ${this.props.useNotification === true ? 'bg-red-500 hover:bg-red-600' : ' bg-green-500 hover:bg-green-600'}`}>
+									{this.props.useNotification === true ? 'Disable Notifications' : 'Enable Notifications'}
+								</button>
+							</div>
+						</div>
+					</div>
 				</div>
 				
 				<div className="bg-white rounded-md px-4 py-2 border mb-4">
@@ -204,15 +227,43 @@ class Settings extends Component {
 	
 	
 	startServer() {
-		invoke("start_smtp_server", {address: `${this.props.ipAddress}:${this.props.port}`}).then().catch()
 		this.props.setSrvStatus(true)
+		this.props.setSrvResponseMessage("");
+		invoke("start_smtp_server", {address: `${this.props.ipAddress}:${this.props.port}`}).then(response => {
+			if (response.length > 0) {
+				this.props.setSrvStatus(false)
+				this.props.setSrvResponseMessage(response)
+			}
+		}).catch()
+		setTimeout(() => {
+			if (this.props.srvStatus === true && this.props.useNotification === true) {
+				if (!notification.isPermissionGranted()) {
+					notification.requestPermission().then(response => {
+						if (response === 'granted') {
+							this.notify();
+						}
+					});
+				} else {
+					this.notify();
+				}
+			}
+		}, 1000)
 	}
+	
+	notify() {
+		notification.sendNotification({
+			title: "Mail-Dev: SMTP Connection",
+			body: "SMTP server started successfully",
+		})
+	}
+	
 	
 }
 
 export default withRouter(connect(
 	state => ({
 		srvStatus: state.setting.srvStatus,
+		srvResponseMessage: state.setting.srvResponseMessage,
 		framework: state.setting.framework,
 		ipAddress: state.setting.ipAddress,
 		port: state.setting.port,
@@ -223,9 +274,12 @@ export default withRouter(connect(
 		forwardEmailPassword: state.setting.forwardEmailPassword,
 		forwardEnabled: state.setting.forwardEnabled,
 		
+		useNotification: state.setting.useNotification,
+		
 	}),
 	{
 		setSrvStatus,
+		setSrvResponseMessage,
 		setIpAddress,
 		setPort,
 		setFramework,
@@ -234,5 +288,6 @@ export default withRouter(connect(
 		setForwardEmailUsername,
 		setForwardEmailPassword,
 		setForwardEnabled,
+		setUseNotification,
 	}
 )(Settings));

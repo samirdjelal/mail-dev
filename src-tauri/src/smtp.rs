@@ -48,7 +48,7 @@ impl Handler for MyHandler {
 // Start the SMTP server
 // bind to custom port, fallback to 25.
 #[tauri::command]
-pub async fn start_smtp_server(address: Option<String>) {
+pub async fn start_smtp_server(address: Option<String>) -> String {
 	let address = address.unwrap_or_else(|| "127.0.0.1:25".into());
 	let handler = MyHandler::new();
 	let mut server = Server::new(handler);
@@ -56,8 +56,12 @@ pub async fn start_smtp_server(address: Option<String>) {
 		.with_ssl(SslConfig::None).unwrap()
 		.with_addr(address).unwrap();
 	match server.serve() {
-		Ok(_) => {}
-		Err(error) => println!("Error: {:?}", error)
+		Ok(_) => {
+			"".to_string()
+		}
+		Err(error) => {
+			format!("{}", error)
+		}
 	}
 }
 
