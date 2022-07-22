@@ -59,7 +59,8 @@ class MailContent extends Component {
 	mailToBlob(data = '') {
 		data = `<html lang="en"><head><base target='_blank' /></head><body><div>${data || ''}</div></body></html>`
 		const blob = new Blob([data], {type: 'text/html'});
-		setTimeout(this.resizeIframe, 100);
+		// TODO: resize the iframe after the content are fully loaded.
+		setTimeout(this.resizeIframe, 300);
 		return URL.createObjectURL(blob);
 	}
 	
@@ -67,7 +68,7 @@ class MailContent extends Component {
 		const previewIframe = document.getElementById('previewIframe');
 		if (previewIframe) {
 			let iframeBody = previewIframe.contentWindow.document.body;
-			if (iframeBody) previewIframe.style.height = `${iframeBody.offsetHeight}px`;
+			if (iframeBody) previewIframe.style.height = `${iframeBody.offsetHeight + 30}px`;
 			previewIframe.addEventListener("load", function () {
 				let iframeHeight = previewIframe.contentWindow.document.body.offsetHeight;
 				if (iframeHeight < 500) iframeHeight = 500 - 10;
