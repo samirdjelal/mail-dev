@@ -79,7 +79,7 @@ class Mailbox extends Component {
 						</Fragment>
 					})}
 				</div>
-				{this.props.mailIndex !== null ? <div className="h-full bg-gray-50 w-full px-6 py-3 scroll overflow-y-auto">
+				{this.props.mailIndex !== null ? <div className="flex flex-col min-h-screen bg-gray-50 w-full px-6 py-3 ">
 					<div className="text-xl pt-2 pb-4 text-gray-800">{this.props.mail.subject || 'Subject'}</div>
 					<div className="border rounded-md bg-white whitespace-pre-wrap p-4 text-sm font-sans text-gray-600 mb-2">
 						<span className="font-medium">From</span> : <span className="text-gray-500">{this.props.mail.from || ''}</span> <br/>
@@ -115,7 +115,7 @@ class Mailbox extends Component {
 						</button>
 					
 					</div>
-					<div className={`bg-white rounded-md border `}>
+					<div className="grow scroll overflow-y-auto bg-white rounded-md border">
 						<MailContent tab={this.state.tab} mail={this.props.mail}/>
 					</div>
 				</div> : <div className="h-full bg-gray-50 w-full px-2 pb-3 scroll overflow-y-auto flex flex-col justify-center items-center w-full text-lg text-gray-700">

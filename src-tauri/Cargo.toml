@@ -10,19 +10,25 @@ edition = "2021"
 build = "src/build.rs"
 
 [build-dependencies]
-tauri-build = { version = "1.0.0-beta.2", features = [] }
+tauri-build = { version = "1.0.4", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 mailin-embedded = { version="^0", features= ["rtls"] }
-mailparse = "0.13.5"
-lettre = "0.10.0-rc.5"
+mailparse = "0.13.8"
+lettre = "0.10.1"
 
 [dependencies.tauri]
-version = "1.0.0-rc.6"
+version = "1.0.4"
 features = ["api-all", "macos-private-api"]
 
 [features]
 default = ["custom-protocol"]
 custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
+panic = "abort"

@@ -16,8 +16,8 @@
 		"react-scripts": "^4.0.3"
 	},
 	"scripts": {
-		"dev": "react-app-rewired start",
-		"build": "cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
+		"dev": "export NODE_OPTIONS=--openssl-legacy-provider; react-app-rewired start",
+		"build": "export NODE_OPTIONS=--openssl-legacy-provider; cross-env GENERATE_SOURCEMAP=false react-app-rewired build",
 		"test": "react-app-rewired test",
 		"eject": "react-app-rewired eject",
 		"tauri": "tauri",
