@@ -13,13 +13,16 @@ pub async fn forward_mail(
   email_to: Option<String>,
   email_subject: Option<String>,
 ) {
-  let host = host.unwrap_or("127.0.0.1".to_string());
-  let port = port.unwrap_or("25".to_string()).parse::<u16>().unwrap();
-  let mut username = username.unwrap_or("".to_string());
-  let password = password.unwrap_or("".to_string());
-  let email_content = email_content.unwrap_or("".to_string());
-  let mut email_to = email_to.unwrap_or("email@example.com".to_string());
-  let email_subject = email_subject.unwrap_or("".to_string());
+  let host = host.unwrap_or_else(|| "127.0.0.1".to_string());
+  let port = port
+    .unwrap_or_else(|| "25".to_string())
+    .parse::<u16>()
+    .unwrap();
+  let mut username = username.unwrap_or_else(|| "".to_string());
+  let password = password.unwrap_or_else(|| "".to_string());
+  let email_content = email_content.unwrap_or_else(|| "".to_string());
+  let mut email_to = email_to.unwrap_or_else(|| "email@example.com".to_string());
+  let email_subject = email_subject.unwrap_or_else(|| "".to_string());
 
   if username.is_empty() {
     username = "samir@mail-dev.com".to_string();
