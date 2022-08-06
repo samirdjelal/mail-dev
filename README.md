@@ -20,6 +20,7 @@ Give it a try, [Download now](https://github.com/samirdjelal/mail-dev/releases).
 - [x] Notification
 - [ ] Auto update
 - [ ] Persistent configuration
+- [ ] SMTP Authentication
 
 <img src="https://raw.githubusercontent.com/samirdjelal/mail-dev/main/screenshots/spam-score.png" alt="Mail-Dev SPAM SCORE"/>
 <br/>
