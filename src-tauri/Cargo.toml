@@ -1,6 +1,6 @@
 [package]
 name = "mail-dev"
-version = "0.7.0"
+version = "0.7.1"
 description = "Mail Dev"
 authors = ["Samir Djelal <ssdjelal@gmail.com>"]
 license = "MIT"
